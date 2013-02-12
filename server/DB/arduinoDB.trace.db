@@ -1,0 +1,29 @@
+04-06 16:36:23 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: "REFERENCES"; SQL statement:
+create table data(ID bigint primary key auto_increment, sensortype_id bigint references sensortypes(id), location_id references locations(id), value double, measure_time timestamp) [50004-165]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3654)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3517)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5195)
+	at org.h2.command.Parser.parseCreate(Parser.java:3806)
+	at org.h2.command.Parser.parsePrepared(Parser.java:324)
+	at org.h2.command.Parser.parse(Parser.java:279)
+	at org.h2.command.Parser.parse(Parser.java:251)
+	at org.h2.command.Parser.prepareCommand(Parser.java:217)
+	at org.h2.engine.Session.prepareLocal(Session.java:415)
+	at org.h2.engine.Session.prepareCommand(Session.java:364)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1111)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1311)
+	at org.h2.server.web.WebApp.query(WebApp.java:1001)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:964)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:967)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Unknown Source)
+04-06 23:54:44 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "SES" not found; SQL statement:
+select * from ses [42102-165]
