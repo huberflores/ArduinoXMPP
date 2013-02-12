@@ -8,5 +8,4 @@ to the cloud. Arduino provides low-cost hardware, while the cloud offers the rel
 
 References
 ----------
-Kaarel Hanson - [Context Sensor Data on Demand for Mobile Users Supported by XMPP (2012)](
-comserv.cs.ut.ee/forms/ati_report/downloader.php?file=7ad72e6e18e68f5ad35dfa5e18ab850d41e96e9b)
+Kaarel Hanson - [Context Sensor Data on Demand for Mobile Users Supported by XMPP (2012)](comserv.cs.ut.ee/forms/ati_report/downloader.php?file=7ad72e6e18e68f5ad35dfa5e18ab850d41e96e9b)
