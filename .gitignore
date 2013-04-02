@@ -1,4 +1,4 @@
 sketches/libraries/
 server/logs/
 server/target/
-server/DB/*
+server/DB/arduinoDB*

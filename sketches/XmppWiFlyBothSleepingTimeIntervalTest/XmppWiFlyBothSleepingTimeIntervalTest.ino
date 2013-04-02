@@ -1,9 +1,11 @@
+#include <TinkerKit.h>
+#include <Ports.h>
 #include <Xmpp.h>
 #include <WiFly.h>
 #include <SensorProtocol.h>
-#include <TinkerKit.h>
 #include <SPI.h>
-#include <Ports.h>
+
+ISR(WDT_vect) { Sleepy::watchdogEvent(); }
 
 char* recipient = "arduinoserver@lauris";
 // username, password, resource, server
@@ -19,6 +21,16 @@ int locationID = 1;
 int length = sizeof(sensorTypes) / sizeof(int);
 SensorProtocol protocol(locationID);
 
+void (*printD)(char* string);
+
+void print(char* string) {
+  Serial.println(string);
+}
+
+void print1(char* string) {
+  Serial1.println(string);
+}
+
 TKLed red(O0);
 TKLed yellow(O4);
 TKLed green(O2);
@@ -27,11 +39,9 @@ TKThermistor thermistor(I0);
 TKHallSensor hall(I1);
 TKLightSensor light(I2);
 
-unsigned long reportStep = 5 * 60; // seconds
+unsigned long reportStep = 10; // seconds
 unsigned long currentTime;
 bool sendData = false;
-
-ISR(WDT_vect) { Sleepy::watchdogEvent(); }
 
 void setup(){
   red.on();
@@ -41,6 +51,7 @@ void setup(){
   xmpp.setSerial(&Serial1);
   WiFly.setUart(&Serial);
   WiFly.begin();
+  WiFly.configure(WLAN_JOIN, 1);
   xmpp.setClient(&client);
   protocol.setSensors(sensorTypes, length);
   getConnected();
@@ -48,10 +59,11 @@ void setup(){
 }
 
 void getConnected() {
-  while(!WiFly.join("poku", "pokunett")){
+  /*while(!WiFly.join("poku", "pokunett")){
     Serial.println("Join fail");
     delay(1000);
-  }
+  }*/
+  WiFly.join("poku", "pokunett");
 }
 
 void getConnectedWithServer() {
@@ -69,10 +81,11 @@ void getConnectedWithServer() {
 }
 
 void getConnectedWithXMPP(){
-  while(!xmpp.connect()){
-    Serial1.println("XMPP Stream negotiation failed");
-    delay(1000);
-    Serial1.println("Retrying..");
+  if(!xmpp.connect()){
+    Serial1.println("AAAAAAA AAAAAAAAAAA AAAAAAAAAAAAA XMPP Stream negotiation failed");
+    client.flush();
+    client.stop();
+    return;
   }
   Serial1.println("Xmpp connection established");
   yellow.off();   
@@ -101,48 +114,33 @@ void loop(){
     sendData = xmpp.getRecAvailable();
   }
 
-  if (sendData) {
-    Serial.println("Send data is true");
-  } else {
-    Serial.println("Send data is false");
-  }
-
   if(sendData) {
-    if (currentTime == 0 || millis() - currentTime > (reportStep*1000)) {
-      //&& millis() - currentTime > (reportStep*1000)) {
-      float tm = thermistor.getCelsius();
-      float hs = hall.get();
-      float ldr = light.get();
-      flicker(&blue);
-      currentTime = millis(); 
-      protocol.addValue(1, tm);
-      protocol.addValue(2, hs);
-      protocol.addValue(3, ldr);
-      char* message = protocol.createMessage();
-      xmpp.sendMessage(recipient, message, "chat");
-      //Sleepy::loseSomeTime(reportStep * 1000); 
-    }  
-    delay(1000);
-    Sleepy::loseSomeTime(65000);  
+    //&& millis() - currentTime > (reportStep*1000)) {
+    float tm = thermistor.getCelsius();
+    float hs = hall.get();
+    float ldr = light.get();
+    flicker(&blue);
+    currentTime = millis(); 
+    protocol.addValue(1, tm);
+    protocol.addValue(2, hs);
+    protocol.addValue(3, ldr);
+    char* message = protocol.createMessage();
+    xmpp.sendMessage(recipient, message, "chat");
+    xmpp.closeStream();
+    xmpp.releaseConnection();
+    client.flush();
+    client.stop();
+    //WiFly.configure(WAKE_TIMER, 30);
+    WiFly.configure(SLEEP, 0);
+    Sleepy::loseSomeTime(reportStep * 1000);  
   } else {
     flicker(&yellow);
     //Sleepy::loseSomeTime(1000);
-  }
+  } 
 }
 
-void flicker(TKLed *led){
+void flicker(TKLed *led) {
   led->on();
   delay(50);
   led->off(); 
 }
-
-
-
-
-
-
-
-
-
-
-

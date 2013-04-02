@@ -3,7 +3,7 @@
 #include <SensorProtocol.h>
 
 char* recipient = "arduinoserver@arduino-xmpp";
-XMPP xmpp("arduino","arduinomega","sensor","arduino-xmpp", recipient);
+XMPP xmpp("arduino","arduinomega","sensor","lauris", recipient);
 //char* serverAddress = "192.168.1.73";
 char* serverAddress = "172.19.5.17";
 int serverPort = 5222;

@@ -184,6 +184,7 @@ public class XmppManager implements Runnable {
 	class ArduinoChatManagerListener implements ChatManagerListener {
 
 		public void chatCreated(Chat chat, boolean createdLocally) {
+      logger.info("New chat created");
 			if (!createdLocally)
 				chat.addMessageListener(messageListener);
 		}

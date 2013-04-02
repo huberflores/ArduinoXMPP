@@ -9,6 +9,8 @@
 
 // Configuration options
 #define WIFLY_BAUD 1
+#define WAKE_TIMER 2
+#define SLEEP_TIMER 3
 
 // Join modes
 #define WEP_MODE false
@@ -129,6 +131,22 @@ boolean WiFlyDevice::configure(byte option, unsigned long value) {
       // the change of SPI UART serial rate above--even though the
       // documentation says the AOK is returned at the old baud
       // rate. TODO: Find out why
+      if (!findInResponse("AOK", 100)) {
+        return false;
+      }
+      break;
+    case WAKE_TIMER:
+      enterCommandMode();
+      uart->print("set sys wake ");
+      uart->println(value);
+      if (!findInResponse("AOK", 100)) {
+        return false;
+      }
+      break;
+    case SLEEP_TIMER:
+      enterCommandMode();
+      uart->print("set sys sleep ");
+      uart->println(value);
       if (!findInResponse("AOK", 100)) {
         return false;
       }

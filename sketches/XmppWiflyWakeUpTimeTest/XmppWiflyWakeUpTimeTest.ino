@@ -21,27 +21,32 @@ int locationID = 1;
 int length = sizeof(sensorTypes) / sizeof(int);
 SensorProtocol protocol(locationID);
 
-TKLed red(O0);
-TKLed yellow(O4);
-TKLed green(O2);
-TKLed blue(O3);
-TKThermistor thermistor(I0);
-TKHallSensor hall(I1);
-TKLightSensor light(I2);
-
-unsigned long reportStep = 1 * 50; // seconds
+unsigned long reportStep = 10; // seconds
 unsigned long currentTime;
 bool sendData = false;
 
+void (*printD)(char* string);
+
+void print(char* string) {
+  Serial.println(string);
+}
+
+void print1(char* string) {
+  Serial1.println(string);
+}
+
 void setup(){
-  red.on();
+  printD = print1;  
   Serial.begin(9600);
-  Serial1.begin(9600);
+  Serial1.begin(9600);  
   Serial1.println("Serial1 started");
   xmpp.setSerial(&Serial1);
   WiFly.setUart(&Serial);
   WiFly.begin();
+  WiFly.configure(WAKE_TIMER, 0);
+  WiFly.configure(SLEEP_TIMER, 0);
   WiFly.configure(WLAN_JOIN, 1);
+  WiFly.configure(COMM_SIZE, 1420);
   xmpp.setClient(&client);
   protocol.setSensors(sensorTypes, length);
   getConnected();
@@ -49,23 +54,22 @@ void setup(){
 }
 
 void getConnected() {
-  //while(!WiFly.join("poku", "pokunett")){
-  //  Serial.println("Join fail");
-  //  delay(1000);
-  //}
   WiFly.join("poku", "pokunett");
+  /*
+  while(!WiFly.join("poku", "pokunett")){
+    printD("Join fail");
+    delay(1000);
+  }*/
 }
 
 void getConnectedWithServer() {
   while(!client.connect()){
-    Serial1.println("TCP Connection failed");
+    printD("TCP Connection failed");
     delay(1000);
   }
   // let propely initialize the connection
   delay(2000);
-  red.off();
-  yellow.on();
-  Serial1.println("connected");
+  printD("connected");
 
   getConnectedWithXMPP();
 }
@@ -77,71 +81,46 @@ void getConnectedWithXMPP(){
     client.stop();
     return;
   }
-  Serial1.println("Xmpp connection established");
-  yellow.off();   
-  green.on();
+  printD("Xmpp connection established");
 }
 
-void loop(){
+void loop() {
   if(!client.connected()) {
+    printD("Client not connected");
     sendData = false;
     xmpp.releaseConnection();
-    green.off();
-    yellow.off();
-    red.on();
     // reconnect
     getConnectedWithServer();
   } 
   else if(!xmpp.getConnected()) {
+    printD("XMPP not connected");
     sendData = false;
-    green.off();
-    yellow.on();
     // reconnect
     getConnectedWithXMPP();  
   } 
   else {
+    printD("HandleIncoming");
     xmpp.handleIncoming(); 
-    sendData = xmpp.getRecAvailable();
+    sendData = xmpp.getRecAvailable();   
   }
 
   if(sendData) {
-    //&& millis() - currentTime > (reportStep*1000)) {
-    float tm = thermistor.getCelsius();
-    float hs = hall.get();
-    float ldr = light.get();
-    flicker(&blue);
-    currentTime = millis(); 
+    float tm = 1.0f;
+    float hs = 1.0f;
+    float ldr = 1.0f;
     protocol.addValue(1, tm);
     protocol.addValue(2, hs);
     protocol.addValue(3, ldr);
     char* message = protocol.createMessage();
     xmpp.sendMessage(recipient, message, "chat");
+    //delay(1000);
     xmpp.closeStream();
     xmpp.releaseConnection();
     client.flush();
     client.stop();
     WiFly.configure(SLEEP, 0);
-    Sleepy::loseSomeTime(reportStep * 1000);   
   } else {
-    flicker(&yellow);
+    printD("Send data is false");
     //Sleepy::loseSomeTime(1000);
   }
 }
-
-void flicker(TKLed *led) {
-  led->on();
-  delay(50);
-  led->off(); 
-}
-
-
-
-
-
-
-
-
-
-
-
-

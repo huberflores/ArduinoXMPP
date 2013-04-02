@@ -1,9 +1,11 @@
+#include <TinkerKit.h>
+#include <Ports.h>
 #include <Xmpp.h>
 #include <WiFly.h>
 #include <SensorProtocol.h>
-#include <TinkerKit.h>
 #include <SPI.h>
-#include <Ports.h>
+
+ISR(WDT_vect) { Sleepy::watchdogEvent(); }
 
 char* recipient = "arduinoserver@lauris";
 // username, password, resource, server
@@ -19,22 +21,11 @@ int locationID = 1;
 int length = sizeof(sensorTypes) / sizeof(int);
 SensorProtocol protocol(locationID);
 
-TKLed red(O0);
-TKLed yellow(O4);
-TKLed green(O2);
-TKLed blue(O3);
-TKThermistor thermistor(I0);
-TKHallSensor hall(I1);
-TKLightSensor light(I2);
-
-unsigned long reportStep = 5 * 60; // seconds
+unsigned long reportStep = 10; // seconds
 unsigned long currentTime;
 bool sendData = false;
 
-ISR(WDT_vect) { Sleepy::watchdogEvent(); }
-
 void setup(){
-  red.on();
   Serial.begin(9600);
   Serial1.begin(9600);
   Serial1.println("Serial1 started");
@@ -61,8 +52,6 @@ void getConnectedWithServer() {
   }
   // let propely initialize the connection
   delay(2000);
-  red.off();
-  yellow.on();
   Serial1.println("connected");
 
   getConnectedWithXMPP();
@@ -75,24 +64,17 @@ void getConnectedWithXMPP(){
     Serial1.println("Retrying..");
   }
   Serial1.println("Xmpp connection established");
-  yellow.off();   
-  green.on();
 }
 
 void loop(){
   if(!client.connected()) {
     sendData = false;
     xmpp.releaseConnection();
-    green.off();
-    yellow.off();
-    red.on();
     // reconnect
     getConnectedWithServer();
   } 
   else if(!xmpp.getConnected()) {
     sendData = false;
-    green.off();
-    yellow.on();
     // reconnect
     getConnectedWithXMPP();  
   } 
@@ -101,48 +83,19 @@ void loop(){
     sendData = xmpp.getRecAvailable();
   }
 
-  if (sendData) {
-    Serial.println("Send data is true");
+  if(sendData) {   
+ // && millis() - currentTime > (reportStep*1000)){
+    float tm = 1.0f;
+    float hs = 1.0f;
+    float ldr = 1.0f;
+    protocol.addValue(1, tm);
+    protocol.addValue(2, hs);
+    protocol.addValue(3, ldr);
+    char* message = protocol.createMessage();
+    xmpp.sendMessage(recipient, message, "chat");
+    //Sleepy::loseSomeTime(reportStep * 1000);   
   } else {
-    Serial.println("Send data is false");
-  }
-
-  if(sendData) {
-    if (currentTime == 0 || millis() - currentTime > (reportStep*1000)) {
-      //&& millis() - currentTime > (reportStep*1000)) {
-      float tm = thermistor.getCelsius();
-      float hs = hall.get();
-      float ldr = light.get();
-      flicker(&blue);
-      currentTime = millis(); 
-      protocol.addValue(1, tm);
-      protocol.addValue(2, hs);
-      protocol.addValue(3, ldr);
-      char* message = protocol.createMessage();
-      xmpp.sendMessage(recipient, message, "chat");
-      //Sleepy::loseSomeTime(reportStep * 1000); 
-    }  
-    delay(1000);
-    Sleepy::loseSomeTime(65000);  
-  } else {
-    flicker(&yellow);
     //Sleepy::loseSomeTime(1000);
   }
+  delay(reportStep * 1000);
 }
-
-void flicker(TKLed *led){
-  led->on();
-  delay(50);
-  led->off(); 
-}
-
-
-
-
-
-
-
-
-
-
-

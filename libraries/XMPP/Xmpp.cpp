@@ -109,7 +109,7 @@ void XMPP::handleIncoming() {
 			dataComplete = true;
 			break;
 		}
-	} while(millis() - currentMillis < 2000  && !dataComplete && dataReceived);	
+	} while(millis() - currentMillis < 5000  && !dataComplete && dataReceived);
 	
 	if(dataReceived){
 		debug("Incoming", buffer);
