@@ -2,3 +2,5 @@ sketches/libraries/
 server/logs/
 server/target/
 server/DB/arduinoDB*
+**.iml
+**.idea

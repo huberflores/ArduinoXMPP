@@ -38,7 +38,6 @@ public class XmppManager implements Runnable {
 	private int port;
 	private String username;
 	private String password;
-	private ObjectMapper mapper;
 
 	private ConnectionConfiguration config;
 	private XMPPConnection connection;
@@ -52,7 +51,6 @@ public class XmppManager implements Runnable {
 		this.port = port;
 		this.username = username;
 		this.password = password;
-		this.mapper = new ObjectMapper();
 	}
 
 	public void run() {
@@ -155,27 +153,16 @@ public class XmppManager implements Runnable {
 		public void processMessage(Chat chat, Message message) {
 			String from = message.getFrom();
 			String body = message.getBody();
-			logger.info(String.format("Received message '%1$s' from %2$s",
-					body, from));
-			if (body.contains("SensorData")) {
-				String content = body.substring(body.indexOf("{"));
-				try {
-					SensorData sensorData = mapper.readValue(content,
-							SensorData.class);
-					logger.info("Data successfully parsed");
-					for (Data data : sensorData.getData()) {
-						XmppDAO.insertSensorData(
-								ConnectionFactory.getDataSource(),
-								sensorData.getLocation(), data.getType(),
-								data.getValue());
-					}
-				} catch (JsonParseException e) {
-					logger.warn("JSON parsing failed", e);
-				} catch (JsonMappingException e) {
-					logger.warn("JSON mapping failed", e);
-				} catch (IOException e) {
-					logger.warn("Message reading failed", e);
-				}
+			logger.info(String.format("Received message '%1$s' from %2$s", body, from));
+			try {
+				XmppDAO.processMessage(body);
+				logger.info("Data successfully parsed");
+			} catch (JsonParseException e) {
+				logger.warn("JSON parsing failed", e);
+			} catch (JsonMappingException e) {
+				logger.warn("JSON mapping failed", e);
+			} catch (IOException e) {
+				logger.warn("Message reading failed", e);
 			}
 		}
 

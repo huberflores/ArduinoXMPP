@@ -1,5 +1,12 @@
 package ee.ut.ati.masters.h2;
 
+import ee.ut.ati.masters.h2.data.Data;
+import ee.ut.ati.masters.h2.data.SensorData;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -7,9 +14,8 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 public class XmppDAO {
-
-	public static void insertSensorData(DataSource dataSource, int location,
-			int type, double value) {
+	
+	public static void insertSensorData(DataSource dataSource, int location, int type, double value) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -26,6 +32,22 @@ public class XmppDAO {
 		} finally {
 			close(connection, preparedStatement);
 		}
+	}
+
+	public static SensorData processMessage(String message) throws IOException {
+		if (message.contains("SensorData")) {
+			ObjectMapper mapper = new ObjectMapper();
+			String content = message.substring(message.indexOf("{"));
+			SensorData sensorData = mapper.readValue(content, SensorData.class);
+			for (Data data : sensorData.getData()) {
+				XmppDAO.insertSensorData(
+						ConnectionFactory.getDataSource(),
+						sensorData.getLocation(), data.getType(),
+						data.getValue());
+			}
+			return sensorData;
+		}
+		return null;
 	}
 
 	public static void insertLocation(DataSource dataSource, String location) {

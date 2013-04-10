@@ -2,6 +2,8 @@ package ee.ut.ati.masters.h2.data;
 
 public class Data {
 
+	public static final int TYPE_TEMPERATURE = 1;
+
 	private int type;
 	private double value;
 
