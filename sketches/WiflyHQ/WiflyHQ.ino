@@ -135,8 +135,8 @@ void loop(){
     protocol.addValue(1, tm);
     protocol.addValue(2, hs);
     protocol.addValue(3, ldr);
-    char* message = protocol.createMessage();
-    xmpp.sendMessage(recipient, message, "chat");
+    Message message = protocol.createMessage();
+    xmpp.sendMessage(recipient, message.message, "chat");
     wifly.close();
     //delay(1000);
     wifly.sleep();

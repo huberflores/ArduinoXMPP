@@ -1,6 +1,8 @@
 package ee.ut.ati.masters.h2.data;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SensorData {
 
@@ -27,4 +29,14 @@ public class SensorData {
 		return data;
 	}
 
+	public Map<Integer, Data> getDataMap() {
+		if (data == null) {
+			return null;
+		}
+		HashMap<Integer, Data> map = new HashMap<Integer, Data>(data.size());
+		for (Data listData : data) {
+			map.put(listData.getType(), listData);
+		}
+		return map;
+	}
 }

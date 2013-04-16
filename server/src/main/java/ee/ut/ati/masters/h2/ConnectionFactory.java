@@ -24,7 +24,6 @@ public class ConnectionFactory {
 		tds.setConnectionPoolDataSource(cpds);
 		tds.setMaxActive(10);
 		tds.setMaxWait(50);
-
 		ds = tds;
 	}
 

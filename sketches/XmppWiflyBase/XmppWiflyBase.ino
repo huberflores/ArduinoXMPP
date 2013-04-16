@@ -1,5 +1,5 @@
 #include <Xmpp.h>
-#include <WiFly.h>
+#include <WiFlyHQ.h>
 #include <SensorProtocol.h>
 #include <TinkerKit.h>
 #include <SPI.h>
@@ -11,7 +11,9 @@ XMPP xmpp("arduino","arduinomega","sensor","lauris", recipient);
 char* server = "192.168.43.231";
 //char* server = "ec2-23-22-34-73.compute-1.amazonaws.com";
 int serverPort = 5222;
-WiFlyClient client(server, serverPort);
+WiFly wifly;
+const char mySSID[] = "poku";
+const char myPassword[] = "pokunett";
 
 int sensorTypes[] = { 
   1, 2, 3 };
@@ -27,7 +29,7 @@ TKThermistor thermistor(I0);
 TKHallSensor hall(I1);
 TKLightSensor light(I2);
 
-unsigned long reportStep = 5 * 60; // seconds
+unsigned long reportStep = 30; // seconds
 unsigned long currentTime;
 bool sendData = false;
 
@@ -39,23 +41,48 @@ void setup(){
   Serial1.begin(9600);
   Serial1.println("Serial1 started");
   xmpp.setSerial(&Serial1);
-  WiFly.setUart(&Serial);
-  WiFly.begin();
-  xmpp.setClient(&client);
+  xmpp.setClient(&wifly);
   protocol.setSensors(sensorTypes, length);
   getConnected();
   getConnectedWithServer();
 }
 
 void getConnected() {
-  while(!WiFly.join("poku", "pokunett")){
-    Serial.println("Join fail");
+   while(!wifly.begin(&Serial, &Serial1)) {
+    Serial1.println("Failed to start wifly");
     delay(1000);
   }
+  
+  /* Join wifi network if not already associated */
+  if (!wifly.isAssociated()) {
+    /* Setup the WiFly to connect to a wifi network */
+    Serial1.println("Joining network");
+    wifly.setSSID(mySSID);
+    wifly.setPassphrase(myPassword);
+    wifly.enableDHCP();
+    
+    while(!wifly.join()) {
+      Serial1.println("Join failed");
+    } 
+    Serial1.println("Joined wifi network");
+  } 
+  else {
+    Serial1.println("Already joined network");
+  }
+  Serial1.println("WiFly ready");
+
+  wifly.setDeviceID("Wifly-TCP");
+  wifly.setIpProtocol(WIFLY_PROTOCOL_TCP);
+
+  if (wifly.isConnected()) {
+    Serial1.println("Old connection active. Closing");
+    wifly.close();
+  }
+  wifly.save();
 }
 
 void getConnectedWithServer() {
-  while(!client.connect()){
+  while(!wifly.open(server,serverPort, true)){
     Serial1.println("TCP Connection failed");
     delay(1000);
   }
@@ -80,7 +107,7 @@ void getConnectedWithXMPP(){
 }
 
 void loop(){
-  if(!client.connected()) {
+  if(!wifly.isConnected()) {
     sendData = false;
     xmpp.releaseConnection();
     green.off();
@@ -101,14 +128,8 @@ void loop(){
     sendData = xmpp.getRecAvailable();
   }
 
-  if (sendData) {
-    Serial.println("Send data is true");
-  } else {
-    Serial.println("Send data is false");
-  }
-
   if(sendData) {
-    if (currentTime == 0 || millis() - currentTime > (reportStep*1000)) {
+    if (currentTime == 0 || millis() - currentTime > (reportStep * 1000)) {
       //&& millis() - currentTime > (reportStep*1000)) {
       float tm = thermistor.getCelsius();
       float hs = hall.get();
@@ -118,12 +139,10 @@ void loop(){
       protocol.addValue(1, tm);
       protocol.addValue(2, hs);
       protocol.addValue(3, ldr);
-      char* message = protocol.createMessage();
-      xmpp.sendMessage(recipient, message, "chat");
+      Message message = protocol.createMessage();
+      xmpp.sendMessage(recipient, message.message, "chat");
       //Sleepy::loseSomeTime(reportStep * 1000); 
-    }  
-    delay(1000);
-    Sleepy::loseSomeTime(65000);  
+    }
   } else {
     flicker(&yellow);
     //Sleepy::loseSomeTime(1000);

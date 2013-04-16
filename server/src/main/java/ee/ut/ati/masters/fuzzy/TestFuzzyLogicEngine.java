@@ -23,22 +23,10 @@ import java.util.Scanner;
  */
 
 public class TestFuzzyLogicEngine implements Constants {
-
-	// Temperature
-	private FuzzySet tempChangedLeft;
-	private FuzzySet tempChangedRight;
-	private FuzzySet tempSame;
-	
-	// Decision
-	private FuzzySet requestData;
-	private FuzzySet predictData;
-
 	private BasicFuzzyController controller;
 
 	public TestFuzzyLogicEngine() {
 		controller = new BasicFuzzyController();
-		createVariables(controller);
-		createRules(controller);
 		controller.setDefuzzifyerMethod(new TempMethod());
 	}
 
@@ -55,7 +43,6 @@ public class TestFuzzyLogicEngine implements Constants {
 				double temp = Double.valueOf(input);
 				int time = fle.calculatePredictTime(temp);
 				System.out.println("Prediction time: " + time);
-				fle.adjustSets(temp);
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid input");
 			} catch (NumberFormatException ex) {
@@ -65,44 +52,34 @@ public class TestFuzzyLogicEngine implements Constants {
 	}
 
 	public int calculatePredictTime(double temp) {
-		controller.fuzzify(KEY_TEMPERATURE, temp);
-		int result = controller.defuzzify(KEY_RESULT);
-		adjustSets(temp);
-		return result;
+		controller.fuzzify(LBL_TEMPERATURE, temp);
+		return controller.defuzzify(LBL_RESULT);
 	}
 
-	public void adjustSets(double temp) {
-		TriangularMembershipFunction sameFunction = (TriangularMembershipFunction) tempSame.getMembershipFunction();
-		sameFunction.setPoints(temp - 1, temp + 1, temp);
+	public void initialize(double prevTemp, double prevLight) {
+		double changeSlopeWidth = 0.5;
+		double sameSlopeWidth = 0.5;
+		double sensorError = 0.1; // To both sides
 
-		TrapezoidalMembershipFunction leftFunction = (TrapezoidalMembershipFunction) tempChangedLeft.getMembershipFunction();
-		leftFunction.setPoints(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, temp - 3, temp);
+		LinguisticVariable temp = new LinguisticVariable(LBL_TEMPERATURE);
+		FuzzySet tempChangedLeft = temp.addSet(LBL_TEMP_CHANGED_LEFT, new TrapezoidalMembershipFunction(Double.NEGATIVE_INFINITY, prevTemp - changeSlopeWidth, prevTemp, false));
+		FuzzySet tempChangedRight = temp.addSet(LBL_TEMP_CHANGED_RIGHT, new TrapezoidalMembershipFunction(prevTemp, prevTemp + changeSlopeWidth, Double.POSITIVE_INFINITY, true));
+		FuzzySet tempSame = temp.addSet(LBL_TEMP_SAME, new TrapezoidalMembershipFunction(prevTemp - sameSlopeWidth, prevTemp - sensorError, prevTemp + sensorError, prevTemp + sameSlopeWidth));
+		controller.addVariable(temp);
 
-		TrapezoidalMembershipFunction rightFunction = (TrapezoidalMembershipFunction) tempChangedRight.getMembershipFunction();
-		rightFunction.setPoints(temp, temp + 3, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
-	}
+		//LinguisticVariable light = new LinguisticVariable(LBL_TEMPERATURE);
+		//FuzzySet lightChangedLeft = temp.addSet(LBL_LIGHT_CHANGED_LEFT, new TrapezoidalMembershipFunction(Double.NEGATIVE_INFINITY, prevLight - changeSlopeWidth, prevLight, false));
+		//FuzzySet lightChangedRight = temp.addSet(LBL_LIGHT_CHANGED_RIGHT, new TrapezoidalMembershipFunction(prevLight, prevLight + changeSlopeWidth, Double.POSITIVE_INFINITY, true));
+		//FuzzySet lightSame = temp.addSet(LBL_LIGHT_SAME, new TrapezoidalMembershipFunction(prevLight - sameSlopeWidth, prevLight - sensorError, prevLight + sensorError, prevLight + sameSlopeWidth));
+		//controller.addVariable(temp);
 
-	/**
-	 * Create default sets
-	 * @param bfc
-	 * @throws FunctionException
-	 */
-	public void createVariables(BasicFuzzyController bfc) {
-		LinguisticVariable mv1 = new LinguisticVariable(KEY_TEMPERATURE);
-		tempChangedLeft = mv1.addSet(KEY_CHANGED_LEFT, new TrapezoidalMembershipFunction(Double.NEGATIVE_INFINITY, 9, 12, false));
-		tempChangedRight = mv1.addSet(KEY_CHANGED_RIGHT, new TrapezoidalMembershipFunction(12, 15, Double.POSITIVE_INFINITY, true));
-		tempSame = mv1.addSet(KEY_SAME, new TriangularMembershipFunction(11, 13, 12));
-		bfc.addVariable(mv1);
+		LinguisticVariable decision = new LinguisticVariable(LBL_RESULT);
+		FuzzySet requestData = decision.addSet(LBL_REQUEST, new TrapezoidalMembershipFunction(Double.NEGATIVE_INFINITY, 0, 10, false));
+		FuzzySet predictData = decision.addSet(LBL_PREDICT, new TrapezoidalMembershipFunction(10, 60, 60, 60));
+		controller.addVariable(decision);
 
-		LinguisticVariable decision = new LinguisticVariable(KEY_RESULT);
-		requestData = decision.addSet(KEY_REQUEST, new TrapezoidalMembershipFunction(Double.NEGATIVE_INFINITY, 0, 10, false));
-		predictData = decision.addSet(KEY_PREDICT, new TrapezoidalMembershipFunction(10, 60, 60, 60));
-		bfc.addVariable(decision);
-	}
-
-	public void createRules(BasicFuzzyController bfc) {
-		bfc.addRule(new FzSet(tempChangedLeft), new FzSet(requestData));
-		bfc.addRule(new FzSet(tempChangedRight), new FzSet(requestData));
-		bfc.addRule(new FzSet(tempSame), new FzSet(predictData));
+		controller.addRule(new FzSet(tempChangedLeft), new FzSet(requestData));
+		controller.addRule(new FzSet(tempChangedRight), new FzSet(requestData));
+		controller.addRule(new FzSet(tempSame), new FzSet(predictData));
 	}
 }

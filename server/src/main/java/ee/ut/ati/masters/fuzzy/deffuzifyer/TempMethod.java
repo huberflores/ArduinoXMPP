@@ -11,8 +11,8 @@ public class TempMethod implements DefuzzyerMethod {
 	@Override
 	public double getDefuzziedValue(LinguisticVariable lv) {
 		Map<String, FuzzySet> sets = lv.getSets();
-		FuzzySet requestSet = sets.get(Constants.KEY_REQUEST);
-		FuzzySet predictSet = sets.get(Constants.KEY_PREDICT);
+		FuzzySet requestSet = sets.get(Constants.LBL_REQUEST);
+		FuzzySet predictSet = sets.get(Constants.LBL_PREDICT);
 		if (requestSet == null) {
 			throw new RuntimeException("Request set missing");
 		}

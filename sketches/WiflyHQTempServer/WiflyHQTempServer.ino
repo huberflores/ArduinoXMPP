@@ -37,7 +37,7 @@ TKHallSensor hall(I1);
 TKLightSensor light(I2);
 
 void setup(){
-  //red.on();
+  red.on();
   Serial.begin(9600);
   Serial1.begin(9600);
   Serial1.println("Serial1 started");
@@ -71,8 +71,11 @@ void getConnected() {
   else {
     Serial1.println("Already joined network");
   }
-
   Serial1.println("WiFly ready");
+
+  red.off();
+  green.off();
+  yellow.on();
 
   wifly.setDeviceID("Wifly-TCP");
   wifly.setIpProtocol(WIFLY_PROTOCOL_TCP);
@@ -89,6 +92,9 @@ void getConnectedWithServer() {
     Serial1.println("TCP Connection failed");
     delay(1000);
   }
+  green.on();
+  yellow.off();
+  red.off();
   Serial1.println("connected");
 }
 
@@ -97,17 +103,20 @@ void loop(){
   Serial1.println(millis());
   
   if(!wifly.isConnected()) {
-    //green.off();
-    //yellow.off();
-    //red.on();
+    green.off();
+    yellow.off();
+    red.on();
+    
     // reconnect
     getConnectedWithServer();
   }
   Serial1.print("Connected at ");
   Serial1.println(millis());
   
+  blue.on();
   postData();
   int idle = readResponse();
+  blue.off();
   
   Serial1.print("Data sent at ");
   Serial1.println(millis());
@@ -130,11 +139,11 @@ void loop(){
 
 void postData() {
   float tm = thermistor.getCelsius();
-  //float hs = hall.get();
-  //float ldr = light.get();
+  float hs = hall.get();
+  float ldr = light.get();
   //float tm = 1.0f;
-  float hs = 1.0f;
-  float ldr = 1.0f;
+  //float hs = 1.0f;
+  //float ldr = 1.0f;
   
   protocol.addValue(1, tm);
   protocol.addValue(2, hs);
@@ -192,5 +201,11 @@ int readResponse() {
     Serial1.println("Invalid message received");
   }
   return idleTime; 
+}
+
+void flicker(TKLed *led) {
+  led->on();
+  delay(50);
+  led->off(); 
 }
 
