@@ -10,6 +10,5 @@ public interface FuzzyTerm extends Serializable {
 
     void clearDOM();
 
-    void orWithDOM(double val);
-    
+	void orWithDOM(double dom);
 }

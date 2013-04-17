@@ -119,4 +119,9 @@ public class TriangularMembershipFunction implements MembershipFunction {
     public double getMin() {
         return a;
     }
+
+	@Override
+	public double getXAtValue(double fnValue) {
+		throw new UnsupportedOperationException("Not implemented");
+	}
 }

@@ -46,7 +46,7 @@ public class ArduinoHandler extends AbstractHandler {
 					}
 					log.info("Data successfully parsed");
 
-					int idleTime = 0; // Default value
+					int idleTime = 10; // Default value
 
 					Map<Integer, Predict.PredictionData> predictionMap = predict.createPredictionData(receivedSensorData);
 					Predict.PredictionData tempPred = predictionMap.get(Data.TYPE_TEMPERATURE);
@@ -70,14 +70,15 @@ public class ArduinoHandler extends AbstractHandler {
 						idleTime = engine.calculatePredictTime(
 								new TestFuzzyLogicEngine.DataHolder(measuredTemp, tempPred.getPredictability()),
 								new TestFuzzyLogicEngine.DataHolder(measuredLight, lightPred.getPredictability()));
-
-						if (idleTime < 1 || !predict.predictData(idleTime, tempPred, lightPred)) {
-							idleTime = 5;
+						log.debug("Fuzzy engine idle time = " + idleTime);
+						if (idleTime > 10 && !predict.predictData(idleTime, tempPred, lightPred)) {
+							idleTime = 10;
 						}
 					}
 					for (Data receivedData : receivedSensorData.getData()) {
 						XmppDAO.insertSensorData(ConnectionFactory.getDataSource(), receivedSensorData.getLocation(), receivedData);
 					}
+					idleTime = Math.max(idleTime, 10); // Minimum value is 10seconds
 
 					log.debug("Request handled in " + (System.currentTimeMillis() - startTime) + " ms");
 					response.setContentType("application/json;charset=utf-8");

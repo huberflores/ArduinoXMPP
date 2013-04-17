@@ -161,4 +161,9 @@ public class TrapezoidalMembershipFunction implements MembershipFunction {
         }
         return a;
     }
+
+	@Override
+	public double getXAtValue(double fnValue) {
+		throw new UnsupportedOperationException("Not implemented");
+	}
 }

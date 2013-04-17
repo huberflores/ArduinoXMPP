@@ -4,7 +4,7 @@ package ee.ut.ati.masters.fuzzy.functions;
 public interface MembershipFunction {
 
     /**
-     * @param input the value x of f(x). 
+     * @param input the value of f(x).
      * @return double the result of the function.
      */
     double getValue(double input);
@@ -29,4 +29,11 @@ public interface MembershipFunction {
      * @return the minimum (not infinity) value of the function. 
      */
     public double getMin();
+
+	/**
+	 *
+	 * @param fnValue
+	 * @return double the value of x sto that f(x) = input
+	 */
+	public double getXAtValue(double fnValue);
 }

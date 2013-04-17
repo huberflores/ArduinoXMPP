@@ -1,10 +1,9 @@
 
 package ee.ut.ati.masters.fuzzy.deffuzifyer;
 
-import ee.ut.ati.masters.fuzzy.variables.LinguisticVariable;
-
+import ee.ut.ati.masters.fuzzy.variables.FuzzySet;
 
 public interface DefuzzyerMethod {
 
-    public double getDefuzziedValue(LinguisticVariable lv);
+    public double getDefuzziedValue(FuzzySet... results);
 }

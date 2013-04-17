@@ -7,60 +7,51 @@ package ee.ut.ati.masters.fuzzy.comparator;
 
 import ee.ut.ati.masters.fuzzy.rules.FuzzyTerm;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- *
  * @author Root
  */
 public class FuzzyOR implements FuzzyTerm {
 
-    List<FuzzyTerm> terms;
+	FuzzyTerm[] terms;
 
-    public FuzzyOR(FuzzyTerm termA, FuzzyTerm termB) {
-        terms = new ArrayList<FuzzyTerm>();
-        terms.add(termA);
-        terms.add(termB);
-    }
+	public FuzzyOR(FuzzyTerm... terms) {
+		this.terms = terms;
+	}
 
-    public FuzzyOR(FuzzyTerm termA, FuzzyTerm termB, FuzzyTerm termC) {
-        terms = new ArrayList<FuzzyTerm>();
-        terms.add(termA);
-        terms.add(termB);
-        terms.add(termC);
-    }
+	@Override
+	public double getDOM() {
+		double maxDOM = 0;
+		for (FuzzyTerm t : terms) {
+			if (t.getDOM() > maxDOM) {
+				maxDOM = t.getDOM();
+			}
+		}
+		return maxDOM;
+	}
 
-    public FuzzyOR(FuzzyTerm termA, FuzzyTerm termB, FuzzyTerm termC, FuzzyTerm termD) {
-        terms = new ArrayList<FuzzyTerm>();
-        terms.add(termA);
-        terms.add(termB);
-        terms.add(termC);
-        terms.add(termD);
-    }
+	@Override
+	public void clearDOM() {
+		for (FuzzyTerm t : terms) {
+			t.clearDOM();
+		}
+	}
 
-    @Override
-    public double getDOM() {
-        double minDOM = Double.NEGATIVE_INFINITY;
-        for (FuzzyTerm t : terms) {
-            if (t.getDOM() > minDOM) {
-                minDOM = t.getDOM();
-            }
-        }
-        return minDOM;
-    }
+	@Override
+	public void orWithDOM(double val) {
+		for (FuzzyTerm t : terms) {
+			t.orWithDOM(val);
+		}
+	}
 
-    @Override
-    public void clearDOM() {
-        for (FuzzyTerm t : terms) {
-            t.clearDOM();
-        }
-    }
-
-    @Override
-    public void orWithDOM(double val) {
-        for (FuzzyTerm t : terms) {
-            t.orWithDOM(val);
-        }
-    }
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("OR[" + getDOM() + "] ( ");
+		for (FuzzyTerm t : terms) {
+			builder.append(t.toString());
+			builder.append(", ");
+		}
+		builder.replace(builder.length() - 2, builder.length(), " )");
+		return builder.toString();
+	}
 }
