@@ -42,22 +42,24 @@ public class XmppDAO {
 	public static SensorData getPreviousSensorData(DataSource dataSource, int location) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		List<Data> dataList = new ArrayList<Data>();
 		try {
 			connection = dataSource.getConnection();
-			preparedStatement = connection.prepareStatement("select * from data where sensortype_id = ? and location_id = ? and measure_time < current_timestamp and measured = true order by measure_time desc limit 1");
-			preparedStatement.setInt(1, Data.TYPE_TEMPERATURE);
-			preparedStatement.setInt(2, location);
-			preparedStatement.execute();
-
-			ResultSet resultSet = preparedStatement.getResultSet();
-			if (resultSet.next()) {
-				Data data = new Data(Data.TYPE_TEMPERATURE, resultSet.getDouble("value"));
-				data.setMeasured(resultSet.getBoolean("measured"));
-				data.setMeasureTime(resultSet.getTimestamp("measure_time"));
-				List<Data> dataList = new ArrayList<Data>();
-				dataList.add(data);
-				return new SensorData(resultSet.getInt("location_id"), dataList);
+			int[] sensorTypes = new int[] {Data.TYPE_TEMPERATURE, Data.TYPE_LIGHT, Data.TYPE_HALL};
+			for (int type : sensorTypes) {
+				preparedStatement = connection.prepareStatement("select * from data where sensortype_id = ? and location_id = ? and measure_time < current_timestamp and measured = true order by measure_time desc limit 1");
+				preparedStatement.setInt(1, type);
+				preparedStatement.setInt(2, location);
+				preparedStatement.execute();
+				ResultSet resultSet = preparedStatement.getResultSet();
+				if (resultSet.next()) {
+					Data data = new Data(type, resultSet.getDouble("value"));
+					data.setMeasured(resultSet.getBoolean("measured"));
+					data.setMeasureTime(resultSet.getTimestamp("measure_time"));
+					dataList.add(data);
+				}
 			}
+			return new SensorData(location, dataList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

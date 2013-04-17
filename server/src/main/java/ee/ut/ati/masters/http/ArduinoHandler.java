@@ -26,13 +26,10 @@ public class ArduinoHandler extends AbstractHandler {
 
 	private Logger log;
 	private Predict predict;
-	private HashSet<String> accessTokens;
 
 	public ArduinoHandler() {
 		log = Logger.getLogger(this.getClass());
 		predict = new Predict(ConnectionFactory.getDataSource());
-		accessTokens = new HashSet<String>();
-		accessTokens.add("ed8975ee-a48f-45b8-a5e2-fd0af61cacf2");
 	}
 
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -49,45 +46,32 @@ public class ArduinoHandler extends AbstractHandler {
 					}
 					log.info("Data successfully parsed");
 
-					int idleTime = 0;
-					SensorData previousSensorData = XmppDAO.getPreviousSensorData(ConnectionFactory.getDataSource(), receivedSensorData.getLocation());
-					if (previousSensorData != null) {
-						double temp = Double.NaN;
-						double hall = Double.NaN;
-						double light = Double.NaN;
+					int idleTime = 0; // Default value
 
-						for (Data data : receivedSensorData.getData()) {
-							switch (data.getType()) {
-							case Data.TYPE_TEMPERATURE:
-								temp = data.getValue();
-								break;
-							case Data.TYPE_HALL:
-								hall = data.getValue();
-								break;
-							case Data.TYPE_LIGHT:
-								light = data.getValue();
-								break;
-							}
-						}
-						Map<Integer, Data> previousDataMap = previousSensorData.getDataMap();
-						if (temp != Double.NaN && hall != Double.NaN && light != Double.NaN) {
-							TestFuzzyLogicEngine engine = new TestFuzzyLogicEngine();
+					Map<Integer, Predict.PredictionData> predictionMap = predict.createPredictionData(receivedSensorData);
+					Predict.PredictionData tempPred = predictionMap.get(Data.TYPE_TEMPERATURE);
+					Predict.PredictionData hallPred = predictionMap.get(Data.TYPE_HALL);
+					Predict.PredictionData lightPred = predictionMap.get(Data.TYPE_LIGHT);
 
-							Data prevTempData = previousDataMap.get(Data.TYPE_TEMPERATURE);
-							Data prevHallData = previousDataMap.get(Data.TYPE_HALL);
-							Data prevLightData = previousDataMap.get(Data.TYPE_LIGHT);
+					if (areAllPredictionsValid(tempPred, lightPred)) {
+						double prevTemp = tempPred.getLastData().getValue();
+						//double prevHall = hallPred.getLastData().getValue();
+						double prevLight = lightPred.getLastData().getValue();
 
-							log.debug("Fuzzy logic initialize temp data: " + prevTempData);
-							log.debug("Fuzzy logic initialize light data: " + prevLightData);
-							//log.debug("Fuzzy logic initialize hall data: " + prevHallData);
+						double measuredTemp = tempPred.getMeasuredData().getValue();
+						//double measuredHall = hallPred.getMeasuredData().getValue();
+						double measuredLight = lightPred.getMeasuredData().getValue();
 
-							double prevTemp = prevTempData == null ? 0 : prevTempData.getValue();
-							double prevLight = prevLightData == null ? 0 : prevLightData.getValue();
-							engine.initialize(prevTemp, prevLight);
-							idleTime = engine.calculatePredictTime(temp);
-						}
+						log.debug("Fuzzy logic initialize data: temp = " + prevTemp + ", light = " + prevLight);
+						log.debug("Measured data: temp = " + measuredTemp + ", light = " + measuredLight);
 
-						if (idleTime <= 0 || !predict.predictData(receivedSensorData, idleTime)) {
+						TestFuzzyLogicEngine engine = new TestFuzzyLogicEngine();
+						engine.initialize(prevTemp, prevLight);
+						idleTime = engine.calculatePredictTime(
+								new TestFuzzyLogicEngine.DataHolder(measuredTemp, tempPred.getPredictability()),
+								new TestFuzzyLogicEngine.DataHolder(measuredLight, lightPred.getPredictability()));
+
+						if (idleTime < 1 || !predict.predictData(idleTime, tempPred, lightPred)) {
 							idleTime = 5;
 						}
 					}
@@ -133,5 +117,18 @@ public class ArduinoHandler extends AbstractHandler {
 		log.debug("Received message body= " + body.toString());
 		reader.close();
 		return body.toString();
+	}
+
+	private static boolean areAllPredictionsValid(Predict.PredictionData... predictions) {
+		for (Predict.PredictionData pred : predictions) {
+			if (pred.getMeasuredData() == null || pred.getRegression() == null || pred.getLastData() == null
+					|| pred.getType() == Predict.PredictionData.UNDEFINED
+					|| pred.getPredictability() == Predict.PredictionData.UNDEFINED
+					|| pred.getPredictability() < Predict.PREDICTABILITY_THRESHOLD
+					|| pred.getLocation() == Predict.PredictionData.UNDEFINED) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

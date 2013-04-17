@@ -90,6 +90,7 @@ void getConnected() {
 void getConnectedWithServer() {
   while(!wifly.open(server,serverPort, true)){
     Serial1.println("TCP Connection failed");
+    wifly.close(); // Weirdly connection remains activte sometimes but isConnected returns false
     delay(1000);
   }
   green.on();
@@ -128,13 +129,13 @@ void loop(){
     idle = 65;
   }
   
-  //if (idle > 0) {
+  if (idle > 0) {
     wifly.close();
     delay(100);
     wifly.sleep();
     delay(100);
-    //Sleepy::loseSomeTime(idle * 1000);
-  //}
+    Sleepy::loseSomeTime(idle * 1000);
+  }
 }
 
 void postData() {
@@ -171,6 +172,7 @@ int readResponse() {
   while (!messageRead && (millis() - startMillis) < 5000) {
     while (wifly.available() > 0) {  
       char ch = wifly.read();
+      startMillis = millis();
       Serial1.write(ch);
       if (ch == '{') {
         json = true;
