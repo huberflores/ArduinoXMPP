@@ -74,14 +74,14 @@ public class XmppDAO {
 		List<Data> result = new ArrayList<Data>();
 		try {
 			connection = dataSource.getConnection();
-			preparedStatement = connection.prepareStatement("select * from data where sensortype_id = ? and location_id = ? and measure_time < current_timestamp and measure_time >= dateadd('minute', -5, current_timestamp) and measured = true order by measure_time asc");
+			preparedStatement = connection.prepareStatement("select * from data where sensortype_id = ? and location_id = ? and measure_time < current_timestamp and measure_time >= dateadd('minute', -4, current_timestamp) and measured = true order by measure_time asc");
 			preparedStatement.setInt(1, sensorType);
 			preparedStatement.setInt(2, location);
 			preparedStatement.execute();
 
 			ResultSet resultSet = preparedStatement.getResultSet();
 			while (resultSet.next()) {
-				Data data = new Data(Data.TYPE_TEMPERATURE, resultSet.getDouble("value"));
+				Data data = new Data(resultSet.getInt("sensortype_id"), resultSet.getDouble("value"));
 				data.setMeasured(resultSet.getBoolean("measured"));
 				data.setMeasureTime(resultSet.getTimestamp("measure_time"));
 				result.add(data);

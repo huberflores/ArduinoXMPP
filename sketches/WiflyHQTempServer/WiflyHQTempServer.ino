@@ -7,14 +7,10 @@
 
 ISR(WDT_vect) { Sleepy::watchdogEvent(); }
 
-#define LINE 0
-#define CR 1
-#define NEWLINE 2
-#define CONTENT_LENGTH 3
-#define BODY 4
-
 char* server = "192.168.43.231";
 int serverPort = 8080;
+
+int avgWakeUpTime = 5;
 
 WiFly wifly;
 
@@ -129,6 +125,7 @@ void loop(){
     idle = 65;
   }
   
+  idle = idle - avgWakeUpTime;  
   if (idle > 0) {
     wifly.close();
     delay(100);
@@ -168,7 +165,6 @@ int readResponse() {
   String msg = "";
   boolean json = false;
   String line = "";
-  int state = LINE;
   while (!messageRead && (millis() - startMillis) < 5000) {
     while (wifly.available() > 0) {  
       char ch = wifly.read();
