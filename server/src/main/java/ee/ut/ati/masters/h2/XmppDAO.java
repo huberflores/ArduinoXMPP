@@ -3,6 +3,7 @@ package ee.ut.ati.masters.h2;
 import ee.ut.ati.masters.h2.data.Data;
 import ee.ut.ati.masters.h2.data.SensorData;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.sql.DataSource;

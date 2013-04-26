@@ -33,6 +33,7 @@ public class ArduinoHandler extends AbstractHandler {
 	}
 
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		log.debug("handle called");
 		long startTime = System.currentTimeMillis();
 		if ("post".equalsIgnoreCase(request.getMethod())) {
 			log.debug("New post request received");
@@ -53,25 +54,26 @@ public class ArduinoHandler extends AbstractHandler {
 					Predict.PredictionData hallPred = predictionMap.get(Data.TYPE_HALL);
 					Predict.PredictionData lightPred = predictionMap.get(Data.TYPE_LIGHT);
 
-					if (areAllPredictionsValid(tempPred, lightPred)) {
+					if (areAllPredictionsValid(tempPred, lightPred, hallPred)) {
 						double prevTemp = tempPred.getLastData().getValue();
-						//double prevHall = hallPred.getLastData().getValue();
+						double prevHall = hallPred.getLastData().getValue();
 						double prevLight = lightPred.getLastData().getValue();
 
 						double measuredTemp = tempPred.getMeasuredData().getValue();
-						//double measuredHall = hallPred.getMeasuredData().getValue();
+						double measuredHall = hallPred.getMeasuredData().getValue();
 						double measuredLight = lightPred.getMeasuredData().getValue();
 
-						log.debug("Fuzzy logic initialize data: temp = " + prevTemp + ", light = " + prevLight);
-						log.debug("Measured data: temp = " + measuredTemp + ", light = " + measuredLight);
+						log.debug("Fuzzy logic initialize data: temp = " + prevTemp + ", light = " + prevLight + ", hall = " + prevHall);
+						log.debug("Measured data: temp = " + measuredTemp + ", light = " + measuredLight + ", hall = " + measuredHall);
 
 						TestFuzzyLogicEngine engine = new TestFuzzyLogicEngine();
-						engine.initialize(prevTemp, prevLight);
+						engine.initialize(prevTemp, prevLight, prevHall);
 						idleTime = engine.calculatePredictTime(
 								new TestFuzzyLogicEngine.DataHolder(measuredTemp, tempPred.getPredictability()),
-								new TestFuzzyLogicEngine.DataHolder(measuredLight, lightPred.getPredictability()));
+								new TestFuzzyLogicEngine.DataHolder(measuredLight, lightPred.getPredictability()),
+								new TestFuzzyLogicEngine.DataHolder(measuredHall, hallPred.getPredictability()));
 						log.debug("Fuzzy engine idle time = " + idleTime);
-						if (idleTime > 10 && !predict.predictData(idleTime, tempPred, lightPred)) {
+						if (idleTime > 10 && !predict.predictData(idleTime, tempPred, lightPred, hallPred)) {
 							idleTime = 10;
 						}
 					}
@@ -79,6 +81,7 @@ public class ArduinoHandler extends AbstractHandler {
 						XmppDAO.insertSensorData(ConnectionFactory.getDataSource(), receivedSensorData.getLocation(), receivedData);
 					}
 					idleTime = Math.max(idleTime, 10); // Minimum value is 10seconds
+					idleTime = 10;
 
 					log.debug("Request handled in " + (System.currentTimeMillis() - startTime) + " ms");
 					response.setContentType("application/json;charset=utf-8");

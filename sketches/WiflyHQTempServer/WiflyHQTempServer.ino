@@ -148,8 +148,9 @@ void postData() {
   protocol.addValue(3, ldr);
   
   Message msg = protocol.createMessage();
-  wifly.println("POST / HTTP/1.1");
-  wifly.println("Host: 192.168.43.231");
+  wifly.println("POST /data/ HTTP/1.1");
+  wifly.print("Host: ");
+  wifly.println(server);
   wifly.println("Connection: close");
   wifly.println("Content-Type: application/json");
   wifly.print("Content-Length: ");

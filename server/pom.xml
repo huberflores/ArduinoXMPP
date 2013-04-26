@@ -65,6 +65,22 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<finalName>${artifactId}-${version}-full</finalName>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -73,16 +89,16 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>jivesoftware</groupId>
-			<artifactId>smack</artifactId>
-			<version>3.1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>jivesoftware</groupId>
-			<artifactId>smackx</artifactId>
-			<version>3.1.0</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>jivesoftware</groupId>-->
+			<!--<artifactId>smack</artifactId>-->
+			<!--<version>3.1.0</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>jivesoftware</groupId>-->
+			<!--<artifactId>smackx</artifactId>-->
+			<!--<version>3.1.0</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>

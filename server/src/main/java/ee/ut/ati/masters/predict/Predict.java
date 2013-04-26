@@ -52,10 +52,13 @@ public class Predict {
 			double error = 0;
 			switch (data.getType()) {
 				case Data.TYPE_LIGHT:
-					error = 10;
+					error = 50;
 					break;
 				case Data.TYPE_TEMPERATURE:
 					error = 0.5;
+					break;
+				case Data.TYPE_HALL:
+					error = 2;
 					break;
 			}
 			prediction.predictability = calculatePredictability(prediction.regression, error);
@@ -83,10 +86,6 @@ public class Predict {
 		int location = -1;
 
 		for (PredictionData pred : predictions) {
-			if (pred.getType() == Data.TYPE_HALL) {
-				// Skip other data types...
-				continue;
-			}
 			if (location != -1 && location != pred.getLocation()) {
 				log.warn("predictData called but PredictionData locations do not match");
 				return false;
@@ -97,21 +96,6 @@ public class Predict {
 			log.debug("Predicting data, new Data: " + pred.getMeasuredData());
 			log.debug("Regression has " + reg.getN() + " samples");
 			log.debug("Regression slope is : " + reg.getSlope());
-
-			/*
-			log.debug("Regression R is " + regression.getR());
-			log.debug("Regression R2 " + regression.getRSquare());
-
-			log.debug("Regression regressionSumSquared " + regression.getRegressionSumSquares());
-			log.debug("Regression errorSumSquared " + regression.getSumSquaredErrors());
-
-
-			double rmse = Math.sqrt(mse);
-			double rmse2 = Math.sqrt(Math.sqrt(regression.getRegressionSumSquares() / regression.getN()));
-
-			log.debug("Regression rmse " + rmse);
-			log.debug("Regression rmse2 " + rmse2);
-			*/
 			if (pred.predictability < PREDICTABILITY_THRESHOLD) {
 				// We will not predict anything
 				log.debug("Regression predictions are not accurate enough, skipping");
@@ -130,6 +114,7 @@ public class Predict {
 		try {
 			double rmse = Math.sqrt(regression.getMeanSquareError());
 			log.debug("Regression root mean square error " + rmse);
+			regression.getInterceptStdErr();
 			TDistribution dist = new TDistributionImpl(regression.getN() - 2);
 			double alphaM = 2.0 * dist.cumulativeProbability(error / rmse) - 1;
 			log.debug("Regression alphaM = " + alphaM);
