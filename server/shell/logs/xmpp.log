@@ -1,0 +1,398 @@
+DEBUG 26.04 14:05:07,270 - handle called
+DEBUG 26.04 14:05:07,271 - Unsupported request type received
+DEBUG 27.04 12:20:21,428 - handle called
+DEBUG 27.04 12:20:21,429 - New post request received
+DEBUG 27.04 12:20:21,429 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.93},{"type":2, "value":513.00},{"type":3, "value":288.00}]}
+INFO  27.04 12:20:21,931 - Data successfully parsed
+DEBUG 27.04 12:20:21,932 - Predicting data, new Data: Data{type=1, value=6.93, measureTime=2013-04-27 12:20:21.931, measured=true}
+DEBUG 27.04 12:20:22,749 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:20:21.931, measured=true}
+DEBUG 27.04 12:20:22,754 - Predicting data, new Data: Data{type=3, value=288.0, measureTime=2013-04-27 12:20:21.931, measured=true}
+DEBUG 27.04 12:20:22,791 - Request handled in 1362 ms
+DEBUG 27.04 12:20:22,800 - Response: {"idle": 10}
+DEBUG 27.04 12:20:29,186 - handle called
+DEBUG 27.04 12:20:29,187 - New post request received
+DEBUG 27.04 12:20:29,187 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":513.00},{"type":3, "value":331.00}]}
+INFO  27.04 12:20:29,206 - Data successfully parsed
+DEBUG 27.04 12:20:29,206 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:20:29.206, measured=true}
+DEBUG 27.04 12:20:29,213 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:20:29.206, measured=true}
+DEBUG 27.04 12:20:29,258 - Predicting data, new Data: Data{type=3, value=331.0, measureTime=2013-04-27 12:20:29.206, measured=true}
+DEBUG 27.04 12:20:29,278 - Request handled in 91 ms
+DEBUG 27.04 12:20:29,278 - Response: {"idle": 10}
+DEBUG 27.04 12:20:37,572 - handle called
+DEBUG 27.04 12:20:37,572 - New post request received
+DEBUG 27.04 12:20:37,573 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":512.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:20:37,600 - Data successfully parsed
+DEBUG 27.04 12:20:37,600 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:20:37.6, measured=true}
+DEBUG 27.04 12:20:37,608 - Predicting data, new Data: Data{type=2, value=512.0, measureTime=2013-04-27 12:20:37.6, measured=true}
+DEBUG 27.04 12:20:37,615 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:20:37.6, measured=true}
+DEBUG 27.04 12:20:37,640 - Request handled in 68 ms
+DEBUG 27.04 12:20:37,640 - Response: {"idle": 10}
+DEBUG 27.04 12:20:44,893 - handle called
+DEBUG 27.04 12:20:44,893 - New post request received
+DEBUG 27.04 12:20:44,893 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":512.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:20:44,921 - Data successfully parsed
+DEBUG 27.04 12:20:44,927 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:20:44.921, measured=true}
+DEBUG 27.04 12:20:44,934 - Predicting data, new Data: Data{type=2, value=512.0, measureTime=2013-04-27 12:20:44.921, measured=true}
+DEBUG 27.04 12:20:44,940 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:20:44.921, measured=true}
+DEBUG 27.04 12:20:44,962 - Request handled in 69 ms
+DEBUG 27.04 12:20:44,962 - Response: {"idle": 10}
+DEBUG 27.04 12:20:52,077 - handle called
+DEBUG 27.04 12:20:52,078 - New post request received
+DEBUG 27.04 12:20:52,078 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":329.00}]}
+INFO  27.04 12:20:52,110 - Data successfully parsed
+DEBUG 27.04 12:20:52,110 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:20:52.11, measured=true}
+DEBUG 27.04 12:20:52,118 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:20:52.11, measured=true}
+DEBUG 27.04 12:20:52,124 - Predicting data, new Data: Data{type=3, value=329.0, measureTime=2013-04-27 12:20:52.11, measured=true}
+DEBUG 27.04 12:20:52,153 - Request handled in 75 ms
+DEBUG 27.04 12:20:52,154 - Response: {"idle": 10}
+DEBUG 27.04 12:21:04,162 - handle called
+DEBUG 27.04 12:21:04,163 - New post request received
+DEBUG 27.04 12:21:04,163 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":329.00}]}
+INFO  27.04 12:21:04,184 - Data successfully parsed
+DEBUG 27.04 12:21:04,185 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:21:04.184, measured=true}
+DEBUG 27.04 12:21:04,191 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:21:04.184, measured=true}
+DEBUG 27.04 12:21:04,204 - Predicting data, new Data: Data{type=3, value=329.0, measureTime=2013-04-27 12:21:04.184, measured=true}
+DEBUG 27.04 12:21:04,239 - Request handled in 76 ms
+DEBUG 27.04 12:21:04,239 - Response: {"idle": 10}
+DEBUG 27.04 12:21:15,321 - handle called
+DEBUG 27.04 12:21:15,321 - New post request received
+DEBUG 27.04 12:21:15,322 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:21:15,337 - Data successfully parsed
+DEBUG 27.04 12:21:15,337 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:21:15.337, measured=true}
+DEBUG 27.04 12:21:15,339 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:21:15.337, measured=true}
+DEBUG 27.04 12:21:15,345 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:21:15.337, measured=true}
+DEBUG 27.04 12:21:15,359 - Request handled in 38 ms
+DEBUG 27.04 12:21:15,360 - Response: {"idle": 10}
+DEBUG 27.04 12:21:21,475 - handle called
+DEBUG 27.04 12:21:21,475 - New post request received
+DEBUG 27.04 12:21:21,475 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:21:21,491 - Data successfully parsed
+DEBUG 27.04 12:21:21,492 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:21:21.491, measured=true}
+DEBUG 27.04 12:21:21,494 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:21:21.491, measured=true}
+DEBUG 27.04 12:21:21,496 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:21:21.491, measured=true}
+DEBUG 27.04 12:21:21,502 - Request handled in 27 ms
+DEBUG 27.04 12:21:21,503 - Response: {"idle": 10}
+DEBUG 27.04 12:21:28,950 - handle called
+DEBUG 27.04 12:21:28,950 - New post request received
+DEBUG 27.04 12:21:28,950 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:21:28,964 - Data successfully parsed
+DEBUG 27.04 12:21:28,964 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:21:28.964, measured=true}
+DEBUG 27.04 12:21:28,966 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:21:28.964, measured=true}
+DEBUG 27.04 12:21:28,968 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:21:28.964, measured=true}
+DEBUG 27.04 12:21:28,975 - Request handled in 25 ms
+DEBUG 27.04 12:21:28,975 - Response: {"idle": 10}
+DEBUG 27.04 12:21:36,124 - handle called
+DEBUG 27.04 12:21:36,124 - New post request received
+DEBUG 27.04 12:21:36,125 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:21:36,146 - Data successfully parsed
+DEBUG 27.04 12:21:36,146 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:21:36.146, measured=true}
+DEBUG 27.04 12:21:36,148 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:21:36.146, measured=true}
+DEBUG 27.04 12:21:36,151 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:21:36.146, measured=true}
+DEBUG 27.04 12:21:36,157 - Request handled in 33 ms
+DEBUG 27.04 12:21:36,157 - Response: {"idle": 10}
+DEBUG 27.04 12:21:42,809 - handle called
+DEBUG 27.04 12:21:42,809 - New post request received
+DEBUG 27.04 12:21:42,810 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:21:42,823 - Data successfully parsed
+DEBUG 27.04 12:21:42,823 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:21:42.823, measured=true}
+DEBUG 27.04 12:21:42,825 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:21:42.823, measured=true}
+DEBUG 27.04 12:21:42,828 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:21:42.823, measured=true}
+DEBUG 27.04 12:21:42,842 - Request handled in 33 ms
+DEBUG 27.04 12:21:42,842 - Response: {"idle": 10}
+DEBUG 27.04 12:21:49,927 - handle called
+DEBUG 27.04 12:21:49,927 - New post request received
+DEBUG 27.04 12:21:49,927 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:21:49,952 - Data successfully parsed
+DEBUG 27.04 12:21:49,953 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:21:49.952, measured=true}
+DEBUG 27.04 12:21:49,960 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:21:49.952, measured=true}
+DEBUG 27.04 12:21:49,962 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:21:49.952, measured=true}
+DEBUG 27.04 12:21:49,971 - Request handled in 44 ms
+DEBUG 27.04 12:21:49,974 - Response: {"idle": 10}
+DEBUG 27.04 12:21:56,965 - handle called
+DEBUG 27.04 12:21:56,965 - New post request received
+DEBUG 27.04 12:21:56,965 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:21:56,988 - Data successfully parsed
+DEBUG 27.04 12:21:56,988 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:21:56.988, measured=true}
+DEBUG 27.04 12:21:56,990 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:21:56.988, measured=true}
+DEBUG 27.04 12:21:56,993 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:21:56.988, measured=true}
+DEBUG 27.04 12:21:57,000 - Request handled in 35 ms
+DEBUG 27.04 12:21:57,000 - Response: {"idle": 10}
+DEBUG 27.04 12:22:04,213 - handle called
+DEBUG 27.04 12:22:04,213 - New post request received
+DEBUG 27.04 12:22:04,213 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:22:04,225 - Data successfully parsed
+DEBUG 27.04 12:22:04,225 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:22:04.225, measured=true}
+DEBUG 27.04 12:22:04,227 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:22:04.225, measured=true}
+DEBUG 27.04 12:22:04,228 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:22:04.225, measured=true}
+DEBUG 27.04 12:22:04,234 - Request handled in 21 ms
+DEBUG 27.04 12:22:04,234 - Response: {"idle": 10}
+DEBUG 27.04 12:22:13,198 - handle called
+DEBUG 27.04 12:22:13,199 - New post request received
+DEBUG 27.04 12:22:13,199 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:22:13,233 - Data successfully parsed
+DEBUG 27.04 12:22:13,233 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:22:13.233, measured=true}
+DEBUG 27.04 12:22:13,239 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:22:13.233, measured=true}
+DEBUG 27.04 12:22:13,241 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:22:13.233, measured=true}
+DEBUG 27.04 12:22:13,263 - Request handled in 64 ms
+DEBUG 27.04 12:22:13,264 - Response: {"idle": 10}
+DEBUG 27.04 12:22:20,456 - handle called
+DEBUG 27.04 12:22:20,456 - New post request received
+DEBUG 27.04 12:22:20,456 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:22:20,472 - Data successfully parsed
+DEBUG 27.04 12:22:20,472 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:22:20.472, measured=true}
+DEBUG 27.04 12:22:20,474 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:22:20.472, measured=true}
+DEBUG 27.04 12:22:20,476 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:22:20.472, measured=true}
+DEBUG 27.04 12:22:20,481 - Request handled in 25 ms
+DEBUG 27.04 12:22:20,481 - Response: {"idle": 10}
+DEBUG 27.04 12:22:27,535 - handle called
+DEBUG 27.04 12:22:27,535 - New post request received
+DEBUG 27.04 12:22:27,535 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":512.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:22:27,545 - Data successfully parsed
+DEBUG 27.04 12:22:27,546 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:22:27.545, measured=true}
+DEBUG 27.04 12:22:27,547 - Predicting data, new Data: Data{type=2, value=512.0, measureTime=2013-04-27 12:22:27.545, measured=true}
+DEBUG 27.04 12:22:27,549 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:22:27.545, measured=true}
+DEBUG 27.04 12:22:27,555 - Request handled in 20 ms
+DEBUG 27.04 12:22:27,555 - Response: {"idle": 10}
+DEBUG 27.04 12:22:38,925 - handle called
+DEBUG 27.04 12:22:38,925 - New post request received
+DEBUG 27.04 12:22:38,925 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:22:38,940 - Data successfully parsed
+DEBUG 27.04 12:22:38,940 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:22:38.94, measured=true}
+DEBUG 27.04 12:22:38,942 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:22:38.94, measured=true}
+DEBUG 27.04 12:22:38,944 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:22:38.94, measured=true}
+DEBUG 27.04 12:22:38,949 - Request handled in 24 ms
+DEBUG 27.04 12:22:38,949 - Response: {"idle": 10}
+DEBUG 27.04 12:22:47,616 - handle called
+DEBUG 27.04 12:22:47,616 - New post request received
+DEBUG 27.04 12:22:47,617 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:22:47,642 - Data successfully parsed
+DEBUG 27.04 12:22:47,642 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:22:47.642, measured=true}
+DEBUG 27.04 12:22:47,644 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:22:47.642, measured=true}
+DEBUG 27.04 12:22:47,646 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:22:47.642, measured=true}
+DEBUG 27.04 12:22:47,654 - Request handled in 38 ms
+DEBUG 27.04 12:22:47,655 - Response: {"idle": 10}
+DEBUG 27.04 12:22:54,790 - handle called
+DEBUG 27.04 12:22:54,791 - New post request received
+DEBUG 27.04 12:22:54,791 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":512.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:22:54,801 - Data successfully parsed
+DEBUG 27.04 12:22:54,801 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:22:54.801, measured=true}
+DEBUG 27.04 12:22:54,805 - Predicting data, new Data: Data{type=2, value=512.0, measureTime=2013-04-27 12:22:54.801, measured=true}
+DEBUG 27.04 12:22:54,806 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:22:54.801, measured=true}
+DEBUG 27.04 12:22:54,812 - Request handled in 21 ms
+DEBUG 27.04 12:22:54,812 - Response: {"idle": 10}
+DEBUG 27.04 12:23:03,753 - handle called
+DEBUG 27.04 12:23:03,753 - New post request received
+DEBUG 27.04 12:23:03,753 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.93},{"type":2, "value":513.00},{"type":3, "value":331.00}]}
+INFO  27.04 12:23:03,763 - Data successfully parsed
+DEBUG 27.04 12:23:03,763 - Predicting data, new Data: Data{type=1, value=6.93, measureTime=2013-04-27 12:23:03.763, measured=true}
+DEBUG 27.04 12:23:03,765 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:23:03.763, measured=true}
+DEBUG 27.04 12:23:03,767 - Predicting data, new Data: Data{type=3, value=331.0, measureTime=2013-04-27 12:23:03.763, measured=true}
+DEBUG 27.04 12:23:03,776 - Request handled in 23 ms
+DEBUG 27.04 12:23:03,776 - Response: {"idle": 10}
+DEBUG 27.04 12:23:10,802 - handle called
+DEBUG 27.04 12:23:10,802 - New post request received
+DEBUG 27.04 12:23:10,802 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:23:10,811 - Data successfully parsed
+DEBUG 27.04 12:23:10,811 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:23:10.811, measured=true}
+DEBUG 27.04 12:23:10,812 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:23:10.811, measured=true}
+DEBUG 27.04 12:23:10,819 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:23:10.811, measured=true}
+DEBUG 27.04 12:23:10,833 - Request handled in 31 ms
+DEBUG 27.04 12:23:10,834 - Response: {"idle": 10}
+DEBUG 27.04 12:23:17,985 - handle called
+DEBUG 27.04 12:23:17,985 - New post request received
+DEBUG 27.04 12:23:17,985 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":513.00},{"type":3, "value":331.00}]}
+INFO  27.04 12:23:17,996 - Data successfully parsed
+DEBUG 27.04 12:23:17,997 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:23:17.996, measured=true}
+DEBUG 27.04 12:23:17,998 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:23:17.996, measured=true}
+DEBUG 27.04 12:23:18,003 - Predicting data, new Data: Data{type=3, value=331.0, measureTime=2013-04-27 12:23:17.996, measured=true}
+DEBUG 27.04 12:23:18,008 - Request handled in 23 ms
+DEBUG 27.04 12:23:18,009 - Response: {"idle": 10}
+DEBUG 27.04 12:23:27,432 - handle called
+DEBUG 27.04 12:23:27,432 - New post request received
+DEBUG 27.04 12:23:27,433 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:23:27,452 - Data successfully parsed
+DEBUG 27.04 12:23:27,453 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:23:27.452, measured=true}
+DEBUG 27.04 12:23:27,454 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:23:27.452, measured=true}
+DEBUG 27.04 12:23:27,455 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:23:27.452, measured=true}
+DEBUG 27.04 12:23:27,462 - Request handled in 30 ms
+DEBUG 27.04 12:23:27,462 - Response: {"idle": 10}
+DEBUG 27.04 12:23:38,648 - handle called
+DEBUG 27.04 12:23:38,648 - New post request received
+DEBUG 27.04 12:23:38,649 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":512.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:23:38,659 - Data successfully parsed
+DEBUG 27.04 12:23:38,659 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:23:38.659, measured=true}
+DEBUG 27.04 12:23:38,660 - Predicting data, new Data: Data{type=2, value=512.0, measureTime=2013-04-27 12:23:38.659, measured=true}
+DEBUG 27.04 12:23:38,661 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:23:38.659, measured=true}
+DEBUG 27.04 12:23:38,664 - Request handled in 16 ms
+DEBUG 27.04 12:23:38,665 - Response: {"idle": 10}
+DEBUG 27.04 12:23:49,342 - handle called
+DEBUG 27.04 12:23:49,342 - New post request received
+DEBUG 27.04 12:23:49,342 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":512.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:23:49,359 - Data successfully parsed
+DEBUG 27.04 12:23:49,359 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:23:49.359, measured=true}
+DEBUG 27.04 12:23:49,361 - Predicting data, new Data: Data{type=2, value=512.0, measureTime=2013-04-27 12:23:49.359, measured=true}
+DEBUG 27.04 12:23:49,362 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:23:49.359, measured=true}
+DEBUG 27.04 12:23:49,368 - Request handled in 26 ms
+DEBUG 27.04 12:23:49,368 - Response: {"idle": 10}
+DEBUG 27.04 12:23:56,509 - handle called
+DEBUG 27.04 12:23:56,509 - New post request received
+DEBUG 27.04 12:23:56,510 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":512.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:23:56,519 - Data successfully parsed
+DEBUG 27.04 12:23:56,519 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:23:56.519, measured=true}
+DEBUG 27.04 12:23:56,520 - Predicting data, new Data: Data{type=2, value=512.0, measureTime=2013-04-27 12:23:56.519, measured=true}
+DEBUG 27.04 12:23:56,521 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:23:56.519, measured=true}
+DEBUG 27.04 12:23:56,525 - Request handled in 16 ms
+DEBUG 27.04 12:23:56,526 - Response: {"idle": 10}
+DEBUG 27.04 12:24:03,514 - handle called
+DEBUG 27.04 12:24:03,514 - New post request received
+DEBUG 27.04 12:24:03,514 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:24:03,522 - Data successfully parsed
+DEBUG 27.04 12:24:03,522 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:24:03.522, measured=true}
+DEBUG 27.04 12:24:03,523 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:24:03.522, measured=true}
+DEBUG 27.04 12:24:03,524 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:24:03.522, measured=true}
+DEBUG 27.04 12:24:03,528 - Request handled in 14 ms
+DEBUG 27.04 12:24:03,529 - Response: {"idle": 10}
+DEBUG 27.04 12:24:12,996 - handle called
+DEBUG 27.04 12:24:12,996 - New post request received
+DEBUG 27.04 12:24:12,996 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":513.00},{"type":3, "value":331.00}]}
+INFO  27.04 12:24:13,008 - Data successfully parsed
+DEBUG 27.04 12:24:13,009 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:24:13.008, measured=true}
+DEBUG 27.04 12:24:13,010 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:24:13.008, measured=true}
+DEBUG 27.04 12:24:13,011 - Predicting data, new Data: Data{type=3, value=331.0, measureTime=2013-04-27 12:24:13.008, measured=true}
+DEBUG 27.04 12:24:13,014 - Request handled in 18 ms
+DEBUG 27.04 12:24:13,014 - Response: {"idle": 10}
+DEBUG 27.04 12:24:21,993 - handle called
+DEBUG 27.04 12:24:21,994 - New post request received
+DEBUG 27.04 12:24:21,994 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":513.00},{"type":3, "value":330.00}]}
+INFO  27.04 12:24:22,005 - Data successfully parsed
+DEBUG 27.04 12:24:22,006 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:24:22.005, measured=true}
+DEBUG 27.04 12:24:22,007 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:24:22.005, measured=true}
+DEBUG 27.04 12:24:22,008 - Predicting data, new Data: Data{type=3, value=330.0, measureTime=2013-04-27 12:24:22.005, measured=true}
+DEBUG 27.04 12:24:22,011 - Request handled in 17 ms
+DEBUG 27.04 12:24:22,012 - Response: {"idle": 10}
+DEBUG 27.04 12:24:30,966 - handle called
+DEBUG 27.04 12:24:30,966 - New post request received
+DEBUG 27.04 12:24:30,966 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":331.00}]}
+INFO  27.04 12:24:30,975 - Data successfully parsed
+DEBUG 27.04 12:24:30,975 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:24:30.975, measured=true}
+DEBUG 27.04 12:24:30,977 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:24:30.975, measured=true}
+DEBUG 27.04 12:24:30,978 - Predicting data, new Data: Data{type=3, value=331.0, measureTime=2013-04-27 12:24:30.975, measured=true}
+DEBUG 27.04 12:24:30,982 - Request handled in 16 ms
+DEBUG 27.04 12:24:30,982 - Response: {"idle": 10}
+DEBUG 27.04 12:24:37,984 - handle called
+DEBUG 27.04 12:24:37,984 - New post request received
+DEBUG 27.04 12:24:37,985 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":331.00}]}
+INFO  27.04 12:24:37,993 - Data successfully parsed
+DEBUG 27.04 12:24:37,993 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:24:37.993, measured=true}
+DEBUG 27.04 12:24:37,994 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:24:37.993, measured=true}
+DEBUG 27.04 12:24:37,995 - Predicting data, new Data: Data{type=3, value=331.0, measureTime=2013-04-27 12:24:37.993, measured=true}
+DEBUG 27.04 12:24:37,999 - Request handled in 15 ms
+DEBUG 27.04 12:24:37,999 - Response: {"idle": 10}
+DEBUG 27.04 12:24:45,084 - handle called
+DEBUG 27.04 12:24:45,084 - New post request received
+DEBUG 27.04 12:24:45,084 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":331.00}]}
+INFO  27.04 12:24:45,096 - Data successfully parsed
+DEBUG 27.04 12:24:45,096 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:24:45.096, measured=true}
+DEBUG 27.04 12:24:45,106 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:24:45.096, measured=true}
+DEBUG 27.04 12:24:45,107 - Predicting data, new Data: Data{type=3, value=331.0, measureTime=2013-04-27 12:24:45.096, measured=true}
+DEBUG 27.04 12:24:45,110 - Request handled in 26 ms
+DEBUG 27.04 12:24:45,110 - Response: {"idle": 10}
+DEBUG 27.04 12:24:53,154 - handle called
+DEBUG 27.04 12:24:53,155 - New post request received
+DEBUG 27.04 12:24:53,155 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":512.00},{"type":3, "value":331.00}]}
+INFO  27.04 12:24:53,162 - Data successfully parsed
+DEBUG 27.04 12:24:53,162 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:24:53.162, measured=true}
+DEBUG 27.04 12:24:53,163 - Predicting data, new Data: Data{type=2, value=512.0, measureTime=2013-04-27 12:24:53.162, measured=true}
+DEBUG 27.04 12:24:53,164 - Predicting data, new Data: Data{type=3, value=331.0, measureTime=2013-04-27 12:24:53.162, measured=true}
+DEBUG 27.04 12:24:53,167 - Request handled in 12 ms
+DEBUG 27.04 12:24:53,168 - Response: {"idle": 10}
+DEBUG 27.04 12:25:00,248 - handle called
+DEBUG 27.04 12:25:00,248 - New post request received
+DEBUG 27.04 12:25:00,249 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":331.00}]}
+INFO  27.04 12:25:00,265 - Data successfully parsed
+DEBUG 27.04 12:25:00,265 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:25:00.265, measured=true}
+DEBUG 27.04 12:25:00,267 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:25:00.265, measured=true}
+DEBUG 27.04 12:25:00,269 - Predicting data, new Data: Data{type=3, value=331.0, measureTime=2013-04-27 12:25:00.265, measured=true}
+DEBUG 27.04 12:25:00,273 - Request handled in 25 ms
+DEBUG 27.04 12:25:00,274 - Response: {"idle": 10}
+DEBUG 27.04 12:25:07,823 - handle called
+DEBUG 27.04 12:25:07,823 - New post request received
+DEBUG 27.04 12:25:07,823 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":513.00},{"type":3, "value":332.00}]}
+INFO  27.04 12:25:07,832 - Data successfully parsed
+DEBUG 27.04 12:25:07,833 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:25:07.832, measured=true}
+DEBUG 27.04 12:25:07,834 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:25:07.832, measured=true}
+DEBUG 27.04 12:25:07,835 - Predicting data, new Data: Data{type=3, value=332.0, measureTime=2013-04-27 12:25:07.832, measured=true}
+DEBUG 27.04 12:25:07,839 - Request handled in 16 ms
+DEBUG 27.04 12:25:07,839 - Response: {"idle": 10}
+DEBUG 27.04 12:25:14,947 - handle called
+DEBUG 27.04 12:25:14,947 - New post request received
+DEBUG 27.04 12:25:14,947 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":332.00}]}
+INFO  27.04 12:25:14,955 - Data successfully parsed
+DEBUG 27.04 12:25:14,955 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:25:14.955, measured=true}
+DEBUG 27.04 12:25:14,956 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:25:14.955, measured=true}
+DEBUG 27.04 12:25:14,957 - Predicting data, new Data: Data{type=3, value=332.0, measureTime=2013-04-27 12:25:14.955, measured=true}
+DEBUG 27.04 12:25:14,977 - Request handled in 30 ms
+DEBUG 27.04 12:25:14,977 - Response: {"idle": 10}
+DEBUG 27.04 12:25:22,043 - handle called
+DEBUG 27.04 12:25:22,043 - New post request received
+DEBUG 27.04 12:25:22,043 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":513.00},{"type":3, "value":332.00}]}
+INFO  27.04 12:25:22,050 - Data successfully parsed
+DEBUG 27.04 12:25:22,050 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:25:22.05, measured=true}
+DEBUG 27.04 12:25:22,052 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:25:22.05, measured=true}
+DEBUG 27.04 12:25:22,053 - Predicting data, new Data: Data{type=3, value=332.0, measureTime=2013-04-27 12:25:22.05, measured=true}
+DEBUG 27.04 12:25:22,056 - Request handled in 13 ms
+DEBUG 27.04 12:25:22,056 - Response: {"idle": 10}
+DEBUG 27.04 12:25:28,524 - handle called
+DEBUG 27.04 12:25:28,524 - New post request received
+DEBUG 27.04 12:25:28,524 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":512.00},{"type":3, "value":332.00}]}
+INFO  27.04 12:25:28,536 - Data successfully parsed
+DEBUG 27.04 12:25:28,539 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:25:28.536, measured=true}
+DEBUG 27.04 12:25:28,540 - Predicting data, new Data: Data{type=2, value=512.0, measureTime=2013-04-27 12:25:28.536, measured=true}
+DEBUG 27.04 12:25:28,549 - Predicting data, new Data: Data{type=3, value=332.0, measureTime=2013-04-27 12:25:28.536, measured=true}
+DEBUG 27.04 12:25:28,557 - Request handled in 33 ms
+DEBUG 27.04 12:25:28,557 - Response: {"idle": 10}
+DEBUG 27.04 12:26:13,027 - handle called
+DEBUG 27.04 12:26:13,027 - New post request received
+DEBUG 27.04 12:26:13,027 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":512.00},{"type":3, "value":331.00}]}
+INFO  27.04 12:26:13,036 - Data successfully parsed
+DEBUG 27.04 12:26:13,036 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:26:13.036, measured=true}
+DEBUG 27.04 12:26:13,037 - Predicting data, new Data: Data{type=2, value=512.0, measureTime=2013-04-27 12:26:13.036, measured=true}
+DEBUG 27.04 12:26:13,038 - Predicting data, new Data: Data{type=3, value=331.0, measureTime=2013-04-27 12:26:13.036, measured=true}
+DEBUG 27.04 12:26:13,042 - Request handled in 15 ms
+DEBUG 27.04 12:26:13,042 - Response: {"idle": 10}
+DEBUG 27.04 12:26:20,088 - handle called
+DEBUG 27.04 12:26:20,088 - New post request received
+DEBUG 27.04 12:26:20,089 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":333.00}]}
+INFO  27.04 12:26:20,099 - Data successfully parsed
+DEBUG 27.04 12:26:20,100 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:26:20.099, measured=true}
+DEBUG 27.04 12:26:20,101 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:26:20.099, measured=true}
+DEBUG 27.04 12:26:20,102 - Predicting data, new Data: Data{type=3, value=333.0, measureTime=2013-04-27 12:26:20.099, measured=true}
+DEBUG 27.04 12:26:20,106 - Request handled in 18 ms
+DEBUG 27.04 12:26:20,107 - Response: {"idle": 10}
+DEBUG 27.04 12:26:27,184 - handle called
+DEBUG 27.04 12:26:27,184 - New post request received
+DEBUG 27.04 12:26:27,185 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":512.00},{"type":3, "value":332.00}]}
+INFO  27.04 12:26:27,192 - Data successfully parsed
+DEBUG 27.04 12:26:27,193 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:26:27.192, measured=true}
+DEBUG 27.04 12:26:27,194 - Predicting data, new Data: Data{type=2, value=512.0, measureTime=2013-04-27 12:26:27.192, measured=true}
+DEBUG 27.04 12:26:27,195 - Predicting data, new Data: Data{type=3, value=332.0, measureTime=2013-04-27 12:26:27.192, measured=true}
+DEBUG 27.04 12:26:27,204 - Request handled in 20 ms
+DEBUG 27.04 12:26:27,204 - Response: {"idle": 10}
+DEBUG 27.04 12:26:34,255 - handle called
+DEBUG 27.04 12:26:34,256 - New post request received
+DEBUG 27.04 12:26:34,256 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.77},{"type":2, "value":513.00},{"type":3, "value":334.00}]}
+INFO  27.04 12:26:34,268 - Data successfully parsed
+DEBUG 27.04 12:26:34,268 - Predicting data, new Data: Data{type=1, value=6.77, measureTime=2013-04-27 12:26:34.268, measured=true}
+DEBUG 27.04 12:26:34,269 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:26:34.268, measured=true}
+DEBUG 27.04 12:26:34,270 - Predicting data, new Data: Data{type=3, value=334.0, measureTime=2013-04-27 12:26:34.268, measured=true}
+DEBUG 27.04 12:26:34,276 - Request handled in 20 ms
+DEBUG 27.04 12:26:34,276 - Response: {"idle": 10}
+DEBUG 27.04 12:26:53,460 - handle called
+DEBUG 27.04 12:26:53,461 - New post request received
+DEBUG 27.04 12:26:53,462 - Received message body= SensorData{"location":1, "data":[{"type":1, "value":  6.85},{"type":2, "value":513.00},{"type":3, "value":333.00}]}
+INFO  27.04 12:26:53,762 - Data successfully parsed
+DEBUG 27.04 12:26:53,772 - Predicting data, new Data: Data{type=1, value=6.85, measureTime=2013-04-27 12:26:53.762, measured=true}
+DEBUG 27.04 12:26:57,761 - Predicting data, new Data: Data{type=2, value=513.0, measureTime=2013-04-27 12:26:53.762, measured=true}
+DEBUG 27.04 12:26:57,769 - Predicting data, new Data: Data{type=3, value=333.0, measureTime=2013-04-27 12:26:53.762, measured=true}
+DEBUG 27.04 12:26:57,818 - Request handled in 4357 ms
+DEBUG 27.04 12:26:57,823 - Response: {"idle": 10}
