@@ -4,10 +4,6 @@ import java.sql.Timestamp;
 
 public class Data {
 
-	public static final int TYPE_TEMPERATURE = 1;
-	public static final int TYPE_HALL = 2;
-	public static final int TYPE_LIGHT = 3;
-
 	private int type;
 	private double value;
 	private Timestamp measureTime;

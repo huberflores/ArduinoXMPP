@@ -3,6 +3,7 @@ package ee.ut.ati.masters.predict;
 import ee.ut.ati.masters.h2.ConnectionFactory;
 import ee.ut.ati.masters.h2.XmppDAO;
 import ee.ut.ati.masters.h2.data.Data;
+import ee.ut.ati.masters.h2.data.Sensor;
 import ee.ut.ati.masters.h2.data.SensorData;
 import org.apache.commons.math.MathException;
 import org.apache.commons.math.distribution.TDistribution;
@@ -23,9 +24,11 @@ public class Predict {
 
 	private Logger log = Logger.getLogger(this.getClass());
 	private DataSource dataSource;
+	private Map<Integer, Sensor> sensorMap;
 
-	public Predict(DataSource source) {
+	public Predict(DataSource source, Map<Integer, Sensor> sensorMap) {
 		this.dataSource = source;
+		this.sensorMap = sensorMap;
 	}
 
 	public Map<Integer, PredictionData> createPredictionData(SensorData receivedSensorData) {
@@ -49,19 +52,12 @@ public class Predict {
 			log.debug("Found " + prediction.regression.getN() + " samples");
 			log.debug("Regression slope is : " + prediction.regression.getSlope());
 
-			double error = 0;
-			switch (data.getType()) {
-				case Data.TYPE_LIGHT:
-					error = 50;
-					break;
-				case Data.TYPE_TEMPERATURE:
-					error = 0.5;
-					break;
-				case Data.TYPE_HALL:
-					error = 2;
-					break;
+			Sensor sensor = sensorMap.get(data.getType());
+			if (sensor == null) {
+				log.error("Sensor of type " + data.getType() + " not found in sensorMap");
+				continue;
 			}
-			prediction.predictability = calculatePredictability(prediction.regression, error);
+			prediction.predictability = calculatePredictability(prediction.regression, sensor.getRegressionError());
 			prediction.lastData = comparisonData.get(comparisonData.size() - 1);    // Last value
 			prediction.location = receivedSensorData.getLocation();
 			prediction.measuredData = data;
@@ -112,9 +108,11 @@ public class Predict {
 
 	private double calculatePredictability(SimpleRegression regression, double error) {
 		try {
+			log.debug("Regression error = " + error);
 			double rmse = Math.sqrt(regression.getMeanSquareError());
+			regression.getRegressionSumSquares();
+			regression.getSumSquaredErrors();
 			log.debug("Regression root mean square error " + rmse);
-			regression.getInterceptStdErr();
 			TDistribution dist = new TDistributionImpl(regression.getN() - 2);
 			double alphaM = 2.0 * dist.cumulativeProbability(error / rmse) - 1;
 			log.debug("Regression alphaM = " + alphaM);

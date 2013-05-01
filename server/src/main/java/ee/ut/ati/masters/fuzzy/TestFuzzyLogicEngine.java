@@ -11,9 +11,11 @@ import ee.ut.ati.masters.fuzzy.functions.TrapezoidalMembershipFunction;
 import ee.ut.ati.masters.fuzzy.variables.Constants;
 import ee.ut.ati.masters.fuzzy.variables.FuzzySet;
 import ee.ut.ati.masters.fuzzy.variables.LinguisticVariable;
+import ee.ut.ati.masters.h2.data.Sensor;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -25,8 +27,10 @@ import java.util.Scanner;
 
 public class TestFuzzyLogicEngine implements Constants {
 	private BasicFuzzyController controller;
+	private Map<Integer, Sensor> sensorMap;
 
-	public TestFuzzyLogicEngine() {
+	public TestFuzzyLogicEngine(Map<Integer, Sensor> sensorMap) {
+		this.sensorMap = sensorMap;
 		controller = new BasicFuzzyController();
 		controller.setDefuzzifyerMethod(new PredictionDefuzzifierMethod());
 	}

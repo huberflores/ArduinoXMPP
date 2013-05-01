@@ -8,6 +8,7 @@
 ISR(WDT_vect) { Sleepy::watchdogEvent(); }
 
 char* server = "192.168.43.231";
+//char* server = "ec2-54-224-196-78.compute-1.amazonaws.com";
 int serverPort = 8080;
 
 int avgWakeUpTime = 5;
@@ -50,6 +51,9 @@ void getConnected() {
   
   wifly.setJoin(1);
   wifly.setWakeTimer(0);
+  wifly.setFlushSize(1420);
+  wifly.setTxPower(10);
+  
 
   /* Join wifi network if not already associated */
   if (!wifly.isAssociated()) {
@@ -162,37 +166,37 @@ void postData() {
 int readResponse() {
   Serial1.println("readResponse");
   long startMillis = millis();
-  boolean messageRead = false;
-  String msg = "";
-  boolean json = false;
+  boolean message = false;
   String line = "";
-  while (!messageRead && (millis() - startMillis) < 5000) {
-    while (wifly.available() > 0) {  
-      char ch = wifly.read();
-      startMillis = millis();
-      Serial1.write(ch);
-      if (ch == '{') {
-        json = true;
-        msg += ch;
-      } else if (ch == '}') {
-        messageRead = true;
-        msg += ch;
-      } else if (json) {
-        msg += ch;
+  long contentLength = 0;
+  long read = 0;
+  while (!(message && read >= contentLength) && (millis() - startMillis) < 5000) {
+    while (wifly.available() > 0) {
+      char ch = wifly.read();      
+      line += ch;
+      startMillis = millis(); 
+      if (message) {
+        read += 1;  
+      } else if (line.endsWith("\r\n")) {
+        if (line == "\r\n") {
+          message = true;
+        } else if (line.length() > 16 && line.startsWith("Content-Length: ")) {
+          contentLength = line.substring(16, line.length() - 2).toInt();
+        }
+        line = "";
       }
     }
   }
   
   int idleTime = 0;
-  if (json) {
-    Serial1.println("Json found");
-    char buf[msg.length() + 1];
-    msg.toCharArray(buf, sizeof(buf));
+  if (line != "") {
+    Serial1.print("Json: ");
+    Serial1.println(line);
+    char buf[line.length() + 1];
+    line.toCharArray(buf, sizeof(buf));
     aJsonObject *root = aJson.parse(buf);
     aJsonObject *idle = aJson.getObjectItem(root, "idle");
     if (idle->type == aJson_Int) {
-      Serial1.print("Idle time= ");
-      Serial1.println(idle->valueint); 
       idleTime = idle->valueint;
     }
     aJson.deleteItem(root);

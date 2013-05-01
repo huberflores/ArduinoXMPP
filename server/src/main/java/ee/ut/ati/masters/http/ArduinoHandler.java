@@ -4,6 +4,7 @@ import ee.ut.ati.masters.fuzzy.TestFuzzyLogicEngine;
 import ee.ut.ati.masters.h2.ConnectionFactory;
 import ee.ut.ati.masters.h2.XmppDAO;
 import ee.ut.ati.masters.h2.data.Data;
+import ee.ut.ati.masters.h2.data.Sensor;
 import ee.ut.ati.masters.h2.data.SensorData;
 import ee.ut.ati.masters.predict.Predict;
 import org.apache.log4j.Logger;
@@ -26,10 +27,12 @@ public class ArduinoHandler extends AbstractHandler {
 
 	private Logger log;
 	private Predict predict;
+	private Map<Integer, Sensor> sensorMap;
 
 	public ArduinoHandler() {
 		log = Logger.getLogger(this.getClass());
-		predict = new Predict(ConnectionFactory.getDataSource());
+		sensorMap = XmppDAO.getSensorMap(ConnectionFactory.getDataSource());
+		predict = new Predict(ConnectionFactory.getDataSource(), sensorMap);
 	}
 
 	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -50,9 +53,9 @@ public class ArduinoHandler extends AbstractHandler {
 					int idleTime = 10; // Default value
 
 					Map<Integer, Predict.PredictionData> predictionMap = predict.createPredictionData(receivedSensorData);
-					Predict.PredictionData tempPred = predictionMap.get(Data.TYPE_TEMPERATURE);
-					Predict.PredictionData hallPred = predictionMap.get(Data.TYPE_HALL);
-					Predict.PredictionData lightPred = predictionMap.get(Data.TYPE_LIGHT);
+					Predict.PredictionData tempPred = predictionMap.get(Sensor.TYPE_TEMPERATURE);
+					Predict.PredictionData hallPred = predictionMap.get(Sensor.TYPE_HALL);
+					Predict.PredictionData lightPred = predictionMap.get(Sensor.TYPE_LIGHT);
 
 					if (areAllPredictionsValid(tempPred, lightPred, hallPred)) {
 						double prevTemp = tempPred.getLastData().getValue();
@@ -66,7 +69,7 @@ public class ArduinoHandler extends AbstractHandler {
 						log.debug("Fuzzy logic initialize data: temp = " + prevTemp + ", light = " + prevLight + ", hall = " + prevHall);
 						log.debug("Measured data: temp = " + measuredTemp + ", light = " + measuredLight + ", hall = " + measuredHall);
 
-						TestFuzzyLogicEngine engine = new TestFuzzyLogicEngine();
+						TestFuzzyLogicEngine engine = new TestFuzzyLogicEngine(sensorMap);
 						engine.initialize(prevTemp, prevLight, prevHall);
 						idleTime = engine.calculatePredictTime(
 								new TestFuzzyLogicEngine.DataHolder(measuredTemp, tempPred.getPredictability()),
@@ -81,7 +84,6 @@ public class ArduinoHandler extends AbstractHandler {
 						XmppDAO.insertSensorData(ConnectionFactory.getDataSource(), receivedSensorData.getLocation(), receivedData);
 					}
 					idleTime = Math.max(idleTime, 10); // Minimum value is 10seconds
-					idleTime = 10;
 
 					log.debug("Request handled in " + (System.currentTimeMillis() - startTime) + " ms");
 					response.setContentType("application/json;charset=utf-8");
@@ -109,9 +111,7 @@ public class ArduinoHandler extends AbstractHandler {
 			log.debug("InputStream is null");
 			return "";
 		}
-
 		InputStreamReader reader = new InputStreamReader(in);
-
 		StringBuilder body = new StringBuilder();
 		char[] buffer = new char[4096];
 		int read;
