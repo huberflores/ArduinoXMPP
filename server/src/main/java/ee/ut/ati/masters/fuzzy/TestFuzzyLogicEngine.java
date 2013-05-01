@@ -78,9 +78,13 @@ public class TestFuzzyLogicEngine implements Constants {
 		Logger log = Logger.getLogger("FuzzyEngine");
 		log.debug("Initializing temp = " + prevTemp + ", light = " + prevLight + ", hall = " + prevHall);
 
-		double tempChangeSlopeWidth = 0.5;
-		double tempSameSlopeWidth = 0.5;
-		double tempSensorError = 0.1; // To both sides
+		Sensor tempSensor = sensorMap.get(Sensor.TYPE_TEMPERATURE);
+		Sensor lightSensor = sensorMap.get(Sensor.TYPE_LIGHT);
+		Sensor hallSensor = sensorMap.get(Sensor.TYPE_HALL);
+
+		double tempSensorError = tempSensor.getMeasureError();
+		double tempChangeSlopeWidth = tempSensorError * 5;
+		double tempSameSlopeWidth = tempSensorError * 5;
 
 		LinguisticVariable temp = new LinguisticVariable(LBL_TEMPERATURE);
 		FuzzySet tempChangedLeft = temp.addSet(createChangedLeftSet(LBL_SET_TEMP_CHANGED_LEFT, prevTemp, tempSensorError, tempChangeSlopeWidth));
@@ -88,9 +92,9 @@ public class TestFuzzyLogicEngine implements Constants {
 		FuzzySet tempSame = temp.addSet(createSameSet(LBL_SET_TEMP_SAME, prevTemp, tempSameSlopeWidth, tempSensorError));
 		controller.addVariable(temp);
 
-		double lightChangeSlopeWidth = 50;
-		double lightSameSlopeWidth = 50;
-		double lightSensorError = 10; // To both sides
+		double lightSensorError = lightSensor.getMeasureError(); // To both sides
+		double lightChangeSlopeWidth = lightSensorError * 5;
+		double lightSameSlopeWidth = lightSensorError * 5;
 
 		LinguisticVariable light = new LinguisticVariable(LBL_LIGHT);
 		FuzzySet lightChangedLeft = light.addSet(createChangedLeftSet(LBL_SET_LIGHT_CHANGED_LEFT, prevLight, lightSensorError, lightChangeSlopeWidth));
@@ -98,9 +102,9 @@ public class TestFuzzyLogicEngine implements Constants {
 		FuzzySet lightSame = light.addSet(createSameSet(LBL_SET_LIGHT_SAME, prevLight, lightSameSlopeWidth, lightSensorError));
 		controller.addVariable(light);
 
-		double hallChangeSlopeWidth = 2.5;
-		double hallSameSlopeWidth = 2.5;
-		double hallSensorError = 0.5; // To both sides
+		double hallSensorError = hallSensor.getMeasureError(); // To both sides
+		double hallChangeSlopeWidth = hallSensorError * 5;
+		double hallSameSlopeWidth = hallSensorError * 5;
 
 		LinguisticVariable hall = new LinguisticVariable(LBL_HALL);
 		FuzzySet hallChangedLeft = hall.addSet(createChangedLeftSet(LBL_SET_HALL_CHANGED_LEFT, prevHall, hallSensorError, hallChangeSlopeWidth));
