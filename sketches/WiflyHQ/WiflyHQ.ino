@@ -3,10 +3,11 @@
 #include <SensorProtocol.h>
 #include <TinkerKit.h>
 
-char* recipient = "arduinoserver@lauris";
-XMPP xmpp("arduino","arduinomega","sensor","lauris", recipient);
+char* recipient = "arduinoserver@arduinoxmpp";
+XMPP xmpp("arduino","arduinomega","sensor","arduinoxmpp", recipient);
 //char* server = "192.168.1.67";
-char* server = "192.168.43.231";
+//char* server = "192.168.43.231";
+char* server = "ec2-54-224-196-78.compute-1.amazonaws.com";
 int serverPort = 5222;
 
 WiFly wifly;
@@ -34,7 +35,7 @@ unsigned long currentTime;
 bool sendData = false;
 
 void setup(){
-  //red.on();
+  red.on();
   Serial.begin(9600);
   Serial1.begin(9600);
   Serial1.println("Serial1 started");
@@ -52,7 +53,8 @@ void getConnected() {
   }
   
   wifly.setJoin(1);
-  wifly.setWakeTimer(10);
+  wifly.setFlushSize(1420);
+  wifly.setTxPower(10);
 
   /* Join wifi network if not already associated */
   if (!wifly.isAssociated()) {
@@ -87,12 +89,13 @@ void getConnected() {
 void getConnectedWithServer() {
   while(!wifly.open(server,serverPort)){
     Serial1.println("TCP Connection failed");
+    wifly.close();
     delay(1000);
   }
   // let propely initialize the connection
   delay(2000);
-  //red.off();
-  //yellow.on();
+  red.off();
+  yellow.on();
   Serial1.println("connected");
 
   getConnectedWithXMPP();
@@ -104,20 +107,20 @@ void getConnectedWithXMPP(){
     delay(1000);
   }
   Serial1.println("Xmpp connection established");
-  //yellow.off();   
-  //green.on();
+  yellow.off();   
+  green.on();
 }
 
 void loop(){
   if(!wifly.isConnected()) {
-    //green.off();
-    //yellow.off();
-    //red.on();
+    green.off();
+    yellow.off();
+    red.on();
     // reconnect
     getConnectedWithServer();
   } else if(!xmpp.getConnected()) {
-    //green.off();
-    //yellow.on();
+    green.off();
+    yellow.on();
     // reconnect
     getConnectedWithXMPP();  
   } 
@@ -125,21 +128,21 @@ void loop(){
     xmpp.handleIncoming(); 
     sendData = xmpp.getRecAvailable();
   }
+  if (sendData == false) {
+    Serial1.println("SendData false");
+  }
   
   if(sendData && millis() - currentTime > (reportStep*1000)){
-    float tm = 1.0;
-    float hs = 1.0;
-    float ldr = 1.0;
-    //flicker();
+    float tm = thermistor.getCelsius();
+    float hs = hall.get();
+    float ldr = light.get();
+    
     currentTime = millis(); 
     protocol.addValue(1, tm);
     protocol.addValue(2, hs);
     protocol.addValue(3, ldr);
     Message message = protocol.createMessage();
     xmpp.sendMessage(recipient, message.message, "chat");
-    wifly.close();
-    //delay(1000);
-    wifly.sleep();
   }
 }
 

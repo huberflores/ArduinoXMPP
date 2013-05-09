@@ -7,8 +7,8 @@
 
 ISR(WDT_vect) { Sleepy::watchdogEvent(); }
 
-char* server = "192.168.43.231";
-//char* server = "ec2-54-224-196-78.compute-1.amazonaws.com";
+//char* server = "192.168.43.231";
+char* server = "ec2-54-224-196-78.compute-1.amazonaws.com";
 int serverPort = 8080;
 
 int avgWakeUpTime = 5;
@@ -100,8 +100,8 @@ void getConnectedWithServer() {
 }
 
 void loop(){
-  Serial1.print("Loop start at ");
-  Serial1.println(millis());
+  //Serial1.print("Loop start at ");
+  //Serial1.println(millis());
   
   if(!wifly.isConnected()) {
     green.off();
@@ -111,8 +111,8 @@ void loop(){
     // reconnect
     getConnectedWithServer();
   }
-  Serial1.print("Connected at ");
-  Serial1.println(millis());
+  //Serial1.print("Connected at ");
+  //Serial1.println(millis());
   
   blue.on();
   postData();
@@ -143,9 +143,6 @@ void postData() {
   float tm = thermistor.getCelsius();
   float hs = hall.get();
   float ldr = light.get();
-  //float tm = 1.0f;
-  //float hs = 1.0f;
-  //float ldr = 1.0f;
   
   protocol.addValue(1, tm);
   protocol.addValue(2, hs);
